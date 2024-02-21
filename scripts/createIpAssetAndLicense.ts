@@ -1,4 +1,4 @@
-import { StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { RegisterPILPolicyRequest, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
 import { http, Address } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
@@ -14,22 +14,27 @@ const main = async function () {
     const client = StoryClient.newClient(config)
 
     // 1. Register IP Asset
-    const myNftAddress = '0xcd3a91675b990f27eb544b85cdb6844573b66a43'
-    const myNftTokenId = '110'
-
     const registeredIpAsset = await client.ipAsset.registerRootIp({
         tokenContractAddress: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
         tokenId: process.env.MY_NFT_TOKEN_ID as string,
         policyId: '0',
         txOptions: { waitForTransaction: true },
     })
-
     console.log(`Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`)
 
-    // 2. Create PIL Policy
-    const pilPolicy = await client.policy.registerPILPolicy({
+    // 2. Create "Non-Commercial Social Remixing" PIL Policy
+    const nonCommercialSocialRemixingParams = {
         transferable: true,
-        commercialRevShare: 5,
+        attribution: true,
+        commercialUse: false,
+        derivativesAttribution: true,
+        derivativesAllowed: true,
+        derivativesApproval: true,
+        derivativesReciprocal: true,
+    }
+
+    const pilPolicy = await client.policy.registerPILPolicy({
+        ...nonCommercialSocialRemixingParams,
         txOptions: { waitForTransaction: true },
     })
     console.log(`PIL Policy registered at transaction hash ${pilPolicy.txHash}, Policy ID: ${pilPolicy.policyId}`)
