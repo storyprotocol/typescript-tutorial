@@ -6,4 +6,10 @@
 npm install 
 ```
 
-- Follow along `createIpAssetWithLicense.ts` to create an IP Asset and licenses
+
+## Run 
+- Follow along `createIpAssetAndLicense.ts` to create an IP Asset and licenses
+```
+npx ts-node scripts/createIpAssetAndLicense.ts
+```
+Note: this will fail if you have not set up your wallet and RPC URL
