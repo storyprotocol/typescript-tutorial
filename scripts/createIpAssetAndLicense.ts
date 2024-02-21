@@ -18,8 +18,8 @@ const main = async function () {
     const myNftTokenId = '110'
 
     const registeredIpAsset = await client.ipAsset.registerRootIp({
-        tokenContractAddress: myNftAddress,
-        tokenId: myNftTokenId,
+        tokenContractAddress: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
+        tokenId: process.env.MY_NFT_TOKEN_ID as string,
         policyId: '0',
         txOptions: { waitForTransaction: true },
     })
