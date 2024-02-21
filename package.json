@@ -1,0 +1,19 @@
+{
+  "name": "my-story-protocol-example-beta",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@story-protocol/core-sdk": "^0.0.1-beta-rc.3",
+    "viem": "^1.21.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "prettier": "3.2.5"
+  }
+}
