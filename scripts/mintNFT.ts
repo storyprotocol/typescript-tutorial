@@ -2,7 +2,7 @@ import { http, Address, createWalletClient, createPublicClient } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import { sepolia } from 'viem/chains'
 
-export async function mintNFT(): Promise<number> {
+export async function mintNFT(): Promise<string> {
     const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as Address)
     const walletClient = createWalletClient({
         account,
@@ -37,8 +37,10 @@ export async function mintNFT(): Promise<number> {
         abi: [contractAbi]
     })
 
-    console.log(`Minted NFT successful with hash: ${hash}`);
-    console.log(`Minted NFT tokenId: ${result}`);
+    let tokenId = result!.toString();
 
-    return result as number;
+    console.log(`Minted NFT successful with hash: ${hash}`);
+    console.log(`Minted NFT tokenId: ${tokenId}`);
+
+    return tokenId;
 }
