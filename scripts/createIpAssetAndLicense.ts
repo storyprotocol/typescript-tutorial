@@ -1,46 +1,19 @@
 import { StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { http, Address, createWalletClient } from 'viem'
+import { http, Address } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
-import { sepolia } from 'viem/chains'
 
 const main = async function () {
     // Set up your wallet for this tutorial.
     // 1. Add your private key here, either directly or in an .env file
-    const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as Address)
     // 2. Add your RPC provider URL here, either directly or in an .env file
-    const walletClient = createWalletClient({
-        account,
-        chain: sepolia,
-        transport: http(process.env.RPC_PROVIDER_URL),
-    })
-
-    // 3. Mint an NFT to your account
-    const hash = await walletClient.writeContract({
-        address: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
-        functionName: 'mint',
-        args: [account.address],
-        abi: [
-            {
-                inputs: [{ internalType: 'address', name: 'to', type: 'address' }],
-                name: 'mint',
-                outputs: [
-                    { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
-                ],
-                stateMutability: 'nonpayable',
-                type: 'function',
-            },
-        ],
-    })
-
-    // console.log(`Tx successful with hash: ${hash}`);
-
+    const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as Address)
     const config: StoryConfig = {
-        account: account,
+        account,
         transport: http(process.env.RPC_PROVIDER_URL),
     }
     const client = StoryClient.newClient(config)
 
-    // 1. Register IP Asset
+    // 1. Register an Existing IP Asset
     const registeredIpAsset = await client.ipAsset.registerRootIp({
         tokenContractAddress: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
         tokenId: process.env.MY_NFT_TOKEN_ID as string,
