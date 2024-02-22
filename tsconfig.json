@@ -15,11 +15,17 @@
         "noUnusedParameters": false,
         "skipLibCheck": true,
         "strict": true,
-        "lib": ["ESNext"],
+        "lib": [
+            "ESNext"
+        ],
         "resolveJsonModule": true,
         "module": "CommonJS",
         "outDir": "dist"
     },
-    "exclude": ["node_modules"],
-    "include": ["scripts/createIpAssetAndLicense.ts"]
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "scripts/createIpAssetAndLicense.ts"
+    ]
 }
