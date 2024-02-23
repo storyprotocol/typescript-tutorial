@@ -1,28 +1,33 @@
-import { RegisterPILPolicyRequest, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { StoryClient, StoryConfig } from '@story-protocol/core-sdk'
 import { http, Address } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
+import { mintNFT } from './mintNFT'
 
 const main = async function () {
-    // Set up your wallet for this tutorial.
-    // 1. Add your private key here, either directly or in an .env file
-    // 2. Add your RPC provider URL here, either directly or in an .env file
-    const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY! as Address)
+    // 1. Set up your wallet for this tutorial.
+    // - Add your private key to your .env file.
+    // - Add your rpc provider url to your .env file 
+    //      - We recommend the Sepolia test network: https://rpc.ankr.com/eth_sepolia
+    const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as Address)
     const config: StoryConfig = {
-        account: account,
+        account,
         transport: http(process.env.RPC_PROVIDER_URL),
     }
     const client = StoryClient.newClient(config)
 
-    // 1. Register IP Asset
+    // 2. If no token ID is provided, we will mint a new one from the NFT contract.
+    const tokenId = process.env.MY_NFT_TOKEN_ID || await mintNFT();
+
+    // 3. Register an NFT as an IP Asset
     const registeredIpAsset = await client.ipAsset.registerRootIp({
         tokenContractAddress: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
-        tokenId: process.env.MY_NFT_TOKEN_ID as string,
+        tokenId: tokenId,
         policyId: '0',
         txOptions: { waitForTransaction: true },
     })
     console.log(`Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`)
 
-    // 2. Create "Non-Commercial Social Remixing" PIL Policy
+    // 4. Create "Non-Commercial Social Remixing" PIL Policy
     const nonCommercialSocialRemixingParams = {
         transferable: true,
         attribution: true,
@@ -39,7 +44,7 @@ const main = async function () {
     })
     console.log(`PIL Policy registered at transaction hash ${pilPolicy.txHash}, Policy ID: ${pilPolicy.policyId}`)
 
-    // 3. Attach Policy to IP
+    // 5. Attach Policy to IP
     const attachPolicyResponse = await client.policy.addPolicyToIp({
         policyId: pilPolicy.policyId as string,
         ipId: registeredIpAsset.ipId as Address,
@@ -47,7 +52,7 @@ const main = async function () {
     })
     console.log(`Attached Policy to IP at transaction hash ${attachPolicyResponse.txHash}, index: ${attachPolicyResponse.index}`)
 
-    // 4. Mint License
+    // 6. Mint License
     const mintLicenseResponse = await client.license.mintLicense({
         policyId: pilPolicy.policyId as string,
         licensorIpId: registeredIpAsset.ipId as `0x${string}`,

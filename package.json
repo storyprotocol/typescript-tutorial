@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx ts-node ./scripts/createIpAssetAndLicense.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@story-protocol/core-sdk": "^0.0.1-beta-rc.3",
+    "ts-node": "^10.9.2",
     "viem": "^1.21.4"
   },
   "devDependencies": {
