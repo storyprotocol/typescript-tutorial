@@ -3,6 +3,7 @@ import { privateKeyToAccount } from 'viem/accounts'
 import { sepolia } from 'viem/chains'
 
 export async function mintNFT(): Promise<string> {
+    console.log('Minting a new NFT...')
     const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as Address)
     const walletClient = createWalletClient({
         account,

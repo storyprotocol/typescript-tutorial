@@ -23,7 +23,7 @@ const main = async function () {
         tokenContractAddress: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
         tokenId: tokenId,
         policyId: '0',
-        txOptions: { waitForTransaction: true },
+        txOptions: { waitForTransaction: true }
     })
     console.log(`Root IPA created at transaction hash ${registeredIpAsset.txHash}, IPA ID: ${registeredIpAsset.ipId}`)
 
@@ -44,13 +44,17 @@ const main = async function () {
     })
     console.log(`PIL Policy registered at transaction hash ${pilPolicy.txHash}, Policy ID: ${pilPolicy.policyId}`)
 
-    // 5. Attach Policy to IP
-    const attachPolicyResponse = await client.policy.addPolicyToIp({
-        policyId: pilPolicy.policyId as string,
-        ipId: registeredIpAsset.ipId as Address,
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Attached Policy to IP at transaction hash ${attachPolicyResponse.txHash}, index: ${attachPolicyResponse.index}`)
+    try {
+        // 5. Attach Policy to IP
+        const attachPolicyResponse = await client.policy.addPolicyToIp({
+            policyId: pilPolicy.policyId as string,
+            ipId: registeredIpAsset.ipId as Address,
+            txOptions: { waitForTransaction: true },
+        })
+        console.log(`Attached Policy to IP at transaction hash ${attachPolicyResponse.txHash}, index: ${attachPolicyResponse.index}`);
+    } catch (e) {
+        console.log(`Policy ID ${pilPolicy.policyId} already attached to IPA ID ${registeredIpAsset.ipId}`);
+    }
 
     // 6. Mint License
     const mintLicenseResponse = await client.license.mintLicense({
