@@ -25,12 +25,12 @@ export async function mintNFT(): Promise<string> {
     }
 
     // 3. Mint an NFT to your account
-    const { result } = await publicClient.simulateContract({
-        address: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
-        functionName: 'mint',
-        args: [account.address],
-        abi: [contractAbi]
-    })
+    // const { result } = await publicClient.simulateContract({
+    //     address: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
+    //     functionName: 'mint',
+    //     args: [account.address],
+    //     abi: [contractAbi]
+    // })
     const hash = await walletClient.writeContract({
         address: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
         functionName: 'mint',
@@ -38,7 +38,9 @@ export async function mintNFT(): Promise<string> {
         abi: [contractAbi]
     })
 
-    let tokenId = result!.toString();
+    const receipt = await publicClient.waitForTransactionReceipt({ hash, confirmations: 1 })
+
+    let tokenId = Number(receipt.logs[0].topics[3]).toString();
 
     console.log(`Minted NFT successful with hash: ${hash}`);
     console.log(`Minted NFT tokenId: ${tokenId}`);

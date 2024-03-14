@@ -9,6 +9,7 @@ const main = async function () {
     // - Add your rpc provider url to your .env file 
     //      - We recommend the Sepolia test network: https://rpc.ankr.com/eth_sepolia
     const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as Address)
+
     const config: StoryConfig = {
         account,
         transport: http(process.env.RPC_PROVIDER_URL),
