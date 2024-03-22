@@ -1,49 +1,32 @@
 import { http, Address, createWalletClient, createPublicClient } from 'viem'
-import { privateKeyToAccount } from 'viem/accounts'
 import { sepolia } from 'viem/chains'
+import { NFTContractAddress, RPCProviderUrl, account, mintContractApi } from '../utils'
 
 export async function mintNFT(): Promise<string> {
     console.log('Minting a new NFT...')
-    const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as Address)
     const walletClient = createWalletClient({
         account,
         chain: sepolia,
-        transport: http(),
+        transport: http(RPCProviderUrl),
     })
     const publicClient = createPublicClient({
         chain: sepolia,
-        transport: http()
+        transport: http(RPCProviderUrl),
     })
-    const contractAbi = {
-        inputs: [{ internalType: 'address', name: 'to', type: 'address' }],
-        name: 'mint',
-        outputs: [
-            { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
-        ],
-        stateMutability: 'nonpayable',
-        type: 'function',
-    }
 
     // 3. Mint an NFT to your account
-    // const { result } = await publicClient.simulateContract({
-    //     address: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
-    //     functionName: 'mint',
-    //     args: [account.address],
-    //     abi: [contractAbi]
-    // })
-    const hash = await walletClient.writeContract({
-        address: process.env.MY_NFT_CONTRACT_ADDRESS as Address,
+    const { request } = await publicClient.simulateContract({
+        address: NFTContractAddress,
         functionName: 'mint',
         args: [account.address],
-        abi: [contractAbi]
+        abi: [mintContractApi],
     })
+    const hash = await walletClient.writeContract(request)
+    console.log(`Minted NFT successful with hash: ${hash}`)
 
-    const receipt = await publicClient.waitForTransactionReceipt({ hash, confirmations: 1 })
+    const receipt = await publicClient.waitForTransactionReceipt({ hash })
+    const tokenId = Number(receipt.logs[0].topics[3]).toString()
+    console.log(`Minted NFT tokenId: ${tokenId}`)
 
-    let tokenId = Number(receipt.logs[0].topics[3]).toString();
-
-    console.log(`Minted NFT successful with hash: ${hash}`);
-    console.log(`Minted NFT tokenId: ${tokenId}`);
-
-    return tokenId;
+    return tokenId
 }
