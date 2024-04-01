@@ -4,7 +4,8 @@ import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 // - Add your private key to your .env file.
 // - Add your rpc provider url to your .env file
 //      - We recommend the Sepolia test network: https://rpc.ankr.com/eth_sepolia
-export const account: Account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as `0x${string}`)
+const privateKey: `0x${string}` = `0x${process.env.WALLET_PRIVATE_KEY}`
+export const account: Account = privateKeyToAccount(privateKey)
 
 // This is a preset PIL policy: https://docs.storyprotocol.xyz/docs/preset-pil-policies
 export const NonCommercialSocialRemixingPolicyId = '1'

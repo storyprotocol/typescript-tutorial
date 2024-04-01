@@ -1,4 +1,4 @@
-import { http, Address, createWalletClient, createPublicClient } from 'viem'
+import { http, createWalletClient, createPublicClient } from 'viem'
 import { sepolia } from 'viem/chains'
 import { NFTContractAddress, RPCProviderUrl, account, mintContractApi } from '../utils'
 
