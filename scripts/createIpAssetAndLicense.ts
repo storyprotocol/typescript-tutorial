@@ -38,20 +38,20 @@ const main = async function () {
     try {
         const attachPolicyResponse = await client.license.attachLicenseTerms({
             licenseTermsId: NonCommercialSocialRemixingTermsId,
-            ipId: registeredIpAssetResponse.ipId as `0x${string}`,
+            ipId: registeredIpAssetResponse.ipId!,
             txOptions: { waitForTransaction: true },
         })
         console.log(`Attached License Terms to IP at transaction hash ${attachPolicyResponse.txHash}`)
     } catch (e) {
-        console.log(`License Terms ID ${NonCommercialSocialRemixingTermsId} already attached to IPA ID ${registeredIpAssetResponse.ipId}`)
+        console.log(`License Terms ID ${NonCommercialSocialRemixingTermsId} already attached to this IPA.`)
     }
 
     // 4. Mint License
     //
     // Docs: https://docs.storyprotocol.xyz/docs/mint-license
     const mintLicenseResponse = await client.license.mintLicenseTokens({
-        licenseTermsId: NonCommercialSocialRemixingTermsId as string,
-        licensorIpId: registeredIpAssetResponse.ipId as `0x${string}`,
+        licenseTermsId: NonCommercialSocialRemixingTermsId,
+        licensorIpId: registeredIpAssetResponse.ipId!,
         receiver: account.address,
         amount: 1,
         txOptions: { waitForTransaction: true },
