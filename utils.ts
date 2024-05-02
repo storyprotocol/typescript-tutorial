@@ -8,13 +8,13 @@ const privateKey: `0x${string}` = `0x${process.env.WALLET_PRIVATE_KEY}`
 export const account: Account = privateKeyToAccount(privateKey)
 
 // This is a preset PIL policy: https://docs.storyprotocol.xyz/docs/preset-pil-policies
-export const NonCommercialSocialRemixingPolicyId = '1'
+export const NonCommercialSocialRemixingTermsId = '1'
 
 // A NFT contract address that will be used to represent your IP Assets
-export const NFTContractAddress: Address = '0x7ee32b8b515dee0ba2f25f612a04a731eec24f49'
+export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0x7ee32b8b515dee0ba2f25f612a04a731eec24f49'
 
 // Sepolia testnet
-export const RPCProviderUrl = 'https://rpc.ankr.com/eth_sepolia'
+export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://ethereum-sepolia-rpc.publicnode.com'
 
 export const mintContractApi = {
     inputs: [{ internalType: 'address', name: 'to', type: 'address' }],

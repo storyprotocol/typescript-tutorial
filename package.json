@@ -10,7 +10,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@story-protocol/core-sdk": "^0.0.1-beta-rc.11",
+        "@story-protocol/core-sdk": "^1.0.0-rc.6",
         "ts-node": "^10.9.2",
         "viem": "^2.8.12"
     },
