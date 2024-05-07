@@ -28,27 +28,23 @@ const main = async function () {
     })
     console.log(`Root IPA created at transaction hash ${registeredIpAssetResponse.txHash}, IPA ID: ${registeredIpAssetResponse.ipId}`)
 
-    // 3. Attach Policy to IP
+    // 3. Attach License Terms to IP
     //
-    // Note: You can also provide the policyId directly
-    // when you mint an IP Asset by providing `policyId`
-    // as a parameter to `registerRootIp`.
-    //
-    // Docs: https://docs.storyprotocol.xyz/docs/attach-policy-to-ip-asset
+    // Docs: https://docs.storyprotocol.xyz/docs/attach-terms-to-an-ip-asset
     try {
-        const attachPolicyResponse = await client.license.attachLicenseTerms({
+        const attachLicenseTermsResponse = await client.license.attachLicenseTerms({
             licenseTermsId: NonCommercialSocialRemixingTermsId,
             ipId: registeredIpAssetResponse.ipId!,
             txOptions: { waitForTransaction: true },
         })
-        console.log(`Attached License Terms to IP at transaction hash ${attachPolicyResponse.txHash}`)
+        console.log(`Attached License Terms to IP at transaction hash ${attachLicenseTermsResponse.txHash}`)
     } catch (e) {
         console.log(`License Terms ID ${NonCommercialSocialRemixingTermsId} already attached to this IPA.`)
     }
 
     // 4. Mint License
     //
-    // Docs: https://docs.storyprotocol.xyz/docs/mint-license
+    // Docs: https://docs.storyprotocol.xyz/docs/mint-a-license
     const mintLicenseResponse = await client.license.mintLicenseTokens({
         licenseTermsId: NonCommercialSocialRemixingTermsId,
         licensorIpId: registeredIpAssetResponse.ipId!,
@@ -60,7 +56,7 @@ const main = async function () {
 
     // 5. Mint deriviative IP Asset using your license
     //
-    // Docs: https://docs.storyprotocol.xyz/docs/register-an-nft-as-an-ipa-remix
+    // Docs: https://docs.storyprotocol.xyz/docs/register-ipa-as-derivative#register-derivative-using-license-token
     const derivativeTokenId = await mintNFT()
     const registeredIpAssetDerivativeResponse = await client.ipAsset.register({
         tokenContract: NFTContractAddress,
