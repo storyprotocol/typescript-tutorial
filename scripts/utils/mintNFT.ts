@@ -1,6 +1,6 @@
 import { http, createWalletClient, createPublicClient } from 'viem'
 import { sepolia } from 'viem/chains'
-import { NFTContractAddress, RPCProviderUrl, account, mintContractApi } from '../utils'
+import { NFTContractAddress, RPCProviderUrl, account, mintContractApi } from './utils'
 
 export async function mintNFT(): Promise<string> {
     console.log('Minting a new NFT...')

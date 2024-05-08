@@ -7,14 +7,18 @@ import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 const privateKey: Address = `0x${process.env.WALLET_PRIVATE_KEY}`
 export const account: Account = privateKeyToAccount(privateKey)
 
-// This is a preset PIL policy: https://docs.storyprotocol.xyz/docs/preset-pil-policies
+// This is a pre-configured PIL Flavor: https://docs.storyprotocol.xyz/docs/pil-flavors
 export const NonCommercialSocialRemixingTermsId = '1'
 
 // A NFT contract address that will be used to represent your IP Assets
 export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0x7ee32b8b515dee0ba2f25f612a04a731eec24f49'
 
-// Sepolia testnet
+// Sepolia testnet. You can provide your own by going to Alchemy, creating a test Sepolia app,
+// and get a free RPC provider URL.
 export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://ethereum-sepolia-rpc.publicnode.com'
+
+// Mock token contract for paying License Token
+export const CurrencyAddress: Address = (process.env.CURRENCY_ADDRESS as Address) || '0xB132A6B7AE652c974EE1557A3521D53d18F6739f'
 
 export const mintContractApi = {
     inputs: [{ internalType: 'address', name: 'to', type: 'address' }],

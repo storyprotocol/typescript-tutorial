@@ -5,12 +5,13 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "npx ts-node ./scripts/createIpAssetAndLicense.ts"
+        "commercial": "npx ts-node ./scripts/commercialExample.ts",
+        "non-commercial": "npx ts-node ./scripts/nonCommercialExample.ts"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@story-protocol/core-sdk": "^1.0.0-rc.6",
+        "@story-protocol/core-sdk": "^1.0.0-rc.10",
         "ts-node": "^10.9.2",
         "viem": "^2.8.12"
     },

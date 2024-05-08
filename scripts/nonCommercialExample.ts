@@ -1,10 +1,9 @@
 import { StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { http } from 'viem'
-import { mintNFT } from './mintNFT'
-import { NFTContractAddress, NonCommercialSocialRemixingTermsId, RPCProviderUrl, account } from '../utils'
+import { Address, http } from 'viem'
+import { mintNFT } from './utils/mintNFT'
+import { NFTContractAddress, NonCommercialSocialRemixingTermsId, RPCProviderUrl, account } from './utils/utils'
 
-// BEFORE YOU RUN THIS FUNCTION:
-// 1. Add WALLET_PRIVATE_KEY to your .env
+// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains instructions for running this non-commercial example.
 
 const main = async function () {
     // 1. Set up your Story Config
@@ -34,7 +33,7 @@ const main = async function () {
     try {
         const attachLicenseTermsResponse = await client.license.attachLicenseTerms({
             licenseTermsId: NonCommercialSocialRemixingTermsId,
-            ipId: registeredIpAssetResponse.ipId!,
+            ipId: registeredIpAssetResponse.ipId as Address,
             txOptions: { waitForTransaction: true },
         })
         console.log(`Attached License Terms to IP at transaction hash ${attachLicenseTermsResponse.txHash}`)
@@ -47,12 +46,12 @@ const main = async function () {
     // Docs: https://docs.storyprotocol.xyz/docs/mint-a-license
     const mintLicenseResponse = await client.license.mintLicenseTokens({
         licenseTermsId: NonCommercialSocialRemixingTermsId,
-        licensorIpId: registeredIpAssetResponse.ipId!,
+        licensorIpId: registeredIpAssetResponse.ipId as Address,
         receiver: account.address,
         amount: 1,
         txOptions: { waitForTransaction: true },
     })
-    console.log(`License Token minted at transaction hash ${mintLicenseResponse.txHash}, license id: ${mintLicenseResponse.licenseTokenId}`)
+    console.log(`License Token minted at transaction hash ${mintLicenseResponse.txHash}, License ID: ${mintLicenseResponse.licenseTokenId}`)
 
     // 5. Mint deriviative IP Asset using your license
     //
@@ -64,12 +63,12 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
     console.log(`Derivative IPA created at transaction hash ${registeredIpAssetResponse.txHash}, IPA ID: ${registeredIpAssetResponse.ipId}`)
-    const registeredDerivativeIpAssetResponse = await client.ipAsset.registerDerivativeWithLicenseTokens({
-        childIpId: registeredIpAssetDerivativeResponse.ipId!,
-        licenseTokenIds: [mintLicenseResponse.licenseTokenId!],
+    const linkDerivativeResponse = await client.ipAsset.registerDerivativeWithLicenseTokens({
+        childIpId: registeredIpAssetDerivativeResponse.ipId as Address,
+        licenseTokenIds: [mintLicenseResponse.licenseTokenId as Address],
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Derivative IPA created at transaction hash ${registeredDerivativeIpAssetResponse.txHash}`)
+    console.log(`Derivative IPA linked to parent at transaction hash ${linkDerivativeResponse.txHash}`)
 }
 
 main()
