@@ -62,7 +62,9 @@ const main = async function () {
         tokenId: derivativeTokenId,
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Derivative IPA created at transaction hash ${registeredIpAssetResponse.txHash}, IPA ID: ${registeredIpAssetResponse.ipId}`)
+    console.log(
+        `Derivative IPA created at transaction hash ${registeredIpAssetDerivativeResponse.txHash}, IPA ID: ${registeredIpAssetDerivativeResponse.ipId}`
+    )
     const linkDerivativeResponse = await client.ipAsset.registerDerivativeWithLicenseTokens({
         childIpId: registeredIpAssetDerivativeResponse.ipId as Address,
         licenseTokenIds: [mintLicenseResponse.licenseTokenId as Address],
