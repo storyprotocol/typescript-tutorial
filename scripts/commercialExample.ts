@@ -92,20 +92,20 @@ const main = async function () {
     // example of royalty because there isn't any royalty to collect.
     // If someone had minted a derivative of the derivative and paid
     // money to mint the License Token to do so, then the root IP Asset
-    // could collect some revenue. This is just here to show you how it
+    // could claim some revenue. This is just here to show you how it
     // would be done.
     ////
 
     // 7. Collect Royalty Tokens
     //
     // Docs: https://docs.storyprotocol.xyz/docs/collect-and-claim-royalty#collect-royalty-tokens
-    const claimRoyaltyTokensResponse = await client.royalty.collectRoyaltyTokens({
+    const collectRoyaltyTokensResponse = await client.royalty.collectRoyaltyTokens({
         parentIpId: registeredIpAssetResponse.ipId as Address,
         royaltyVaultIpId: registeredIpAssetDerivativeResponse.ipId as Address,
         txOptions: { waitForTransaction: true },
     })
     console.log(
-        `Collected royalty token ${claimRoyaltyTokensResponse.royaltyTokensCollected} at transaction hash ${claimRoyaltyTokensResponse.txHash}`
+        `Collected royalty token ${collectRoyaltyTokensResponse.royaltyTokensCollected} at transaction hash ${collectRoyaltyTokensResponse.txHash}`
     )
 
     // 8. Claim Revenue
