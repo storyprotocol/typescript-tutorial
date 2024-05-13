@@ -14,7 +14,6 @@ export async function mintNFT(): Promise<string> {
         transport: http(RPCProviderUrl),
     })
 
-    // 3. Mint an NFT to your account
     const { request } = await publicClient.simulateContract({
         address: NFTContractAddress,
         functionName: 'mint',
