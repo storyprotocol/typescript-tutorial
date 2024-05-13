@@ -85,7 +85,7 @@ const main = async function () {
         licenseTokenIds: [mintLicenseResponse.licenseTokenId as Address],
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Derivative IPA created at transaction hash ${linkDerivativeResponse.txHash}`)
+    console.log(`Derivative IPA linked to parent at transaction hash ${linkDerivativeResponse.txHash}`)
 
     ////
     // NOTE FOR THE FOLLOWING SECTIONS: This is not a very good
