@@ -21,7 +21,7 @@ const main = async function () {
     // Docs: https://docs.storyprotocol.xyz/docs/register-an-nft-as-an-ip-asset
     const tokenId = await mintNFT()
     const registeredIpAssetResponse = await client.ipAsset.register({
-        tokenContract: NFTContractAddress,
+        nftContract: NFTContractAddress,
         tokenId: tokenId,
         txOptions: { waitForTransaction: true },
     })
@@ -58,7 +58,7 @@ const main = async function () {
     // Docs: https://docs.storyprotocol.xyz/docs/register-ipa-as-derivative#register-derivative-using-license-token
     const derivativeTokenId = await mintNFT()
     const registeredIpAssetDerivativeResponse = await client.ipAsset.register({
-        tokenContract: NFTContractAddress,
+        nftContract: NFTContractAddress,
         tokenId: derivativeTokenId,
         txOptions: { waitForTransaction: true },
     })
@@ -67,7 +67,7 @@ const main = async function () {
     )
     const linkDerivativeResponse = await client.ipAsset.registerDerivativeWithLicenseTokens({
         childIpId: registeredIpAssetDerivativeResponse.ipId as Address,
-        licenseTokenIds: [mintLicenseResponse.licenseTokenId as Address],
+        licenseTokenIds: [mintLicenseResponse.licenseTokenId as bigint],
         txOptions: { waitForTransaction: true },
     })
     console.log(`Derivative IPA linked to parent at transaction hash ${linkDerivativeResponse.txHash}`)

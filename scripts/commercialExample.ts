@@ -21,7 +21,7 @@ const main = async function () {
     // Docs: https://docs.storyprotocol.xyz/docs/register-an-nft-as-an-ip-asset
     const tokenId = await mintNFT()
     const registeredIpAssetResponse = await client.ipAsset.register({
-        tokenContract: NFTContractAddress,
+        nftContract: NFTContractAddress,
         tokenId: tokenId,
         txOptions: { waitForTransaction: true },
     })
@@ -47,7 +47,7 @@ const main = async function () {
     // Docs: https://docs.storyprotocol.xyz/docs/attach-terms-to-an-ip-asset
     try {
         const attachLicenseTermsResponse = await client.license.attachLicenseTerms({
-            licenseTermsId: registerPILTermsResponse.licenseTermsId as string,
+            licenseTermsId: registerPILTermsResponse.licenseTermsId as bigint,
             ipId: registeredIpAssetResponse.ipId as Address,
             txOptions: { waitForTransaction: true },
         })
@@ -60,7 +60,7 @@ const main = async function () {
     //
     // Docs: https://docs.storyprotocol.xyz/docs/mint-a-license
     const mintLicenseResponse = await client.license.mintLicenseTokens({
-        licenseTermsId: registerPILTermsResponse.licenseTermsId as string,
+        licenseTermsId: registerPILTermsResponse.licenseTermsId as bigint,
         licensorIpId: registeredIpAssetResponse.ipId as Address,
         receiver: account.address,
         amount: 1,
@@ -73,7 +73,7 @@ const main = async function () {
     // Docs: https://docs.storyprotocol.xyz/docs/register-ipa-as-derivative#register-derivative-using-license-token
     const derivativeTokenId = await mintNFT()
     const registeredIpAssetDerivativeResponse = await client.ipAsset.register({
-        tokenContract: NFTContractAddress,
+        nftContract: NFTContractAddress,
         tokenId: derivativeTokenId,
         txOptions: { waitForTransaction: true },
     })
@@ -82,7 +82,7 @@ const main = async function () {
     )
     const linkDerivativeResponse = await client.ipAsset.registerDerivativeWithLicenseTokens({
         childIpId: registeredIpAssetDerivativeResponse.ipId as Address,
-        licenseTokenIds: [mintLicenseResponse.licenseTokenId as Address],
+        licenseTokenIds: [mintLicenseResponse.licenseTokenId as bigint],
         txOptions: { waitForTransaction: true },
     })
     console.log(`Derivative IPA linked to parent at transaction hash ${linkDerivativeResponse.txHash}`)
@@ -117,7 +117,7 @@ const main = async function () {
     })
     console.log(`Took a snapshot with ID ${snapshotResponse.snapshotId} at transaction hash ${snapshotResponse.txHash}`)
     const claimRevenueResponse = await client.royalty.claimRevenue({
-        snapshotIds: [snapshotResponse.snapshotId as string],
+        snapshotIds: [snapshotResponse.snapshotId as bigint],
         royaltyVaultIpId: registeredIpAssetDerivativeResponse.ipId as Address,
         token: CurrencyAddress,
         txOptions: { waitForTransaction: true },
