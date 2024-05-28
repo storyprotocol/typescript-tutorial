@@ -1,5 +1,5 @@
 import { StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { Address, http } from 'viem'
+import { Address, http, toHex } from 'viem'
 import { mintNFT } from './utils/mintNFT'
 import { CurrencyAddress, NFTContractAddress, NonCommercialSocialRemixingTermsId, RPCProviderUrl, account } from './utils/utils'
 
@@ -23,6 +23,11 @@ const main = async function () {
     const registeredIpAssetResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
         tokenId: tokenId,
+        metadata: {
+            metadataURI: 'test-uri',
+            metadataHash: toHex('test-metadata-hash', { size: 32 }),
+            nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
+        },
         txOptions: { waitForTransaction: true },
     })
     console.log(`Root IPA created at transaction hash ${registeredIpAssetResponse.txHash}, IPA ID: ${registeredIpAssetResponse.ipId}`)
@@ -75,6 +80,11 @@ const main = async function () {
     const registeredIpAssetDerivativeResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
         tokenId: derivativeTokenId,
+        metadata: {
+            metadataURI: 'test-uri',
+            metadataHash: toHex('test-metadata-hash', { size: 32 }),
+            nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
+        },
         txOptions: { waitForTransaction: true },
     })
     console.log(
