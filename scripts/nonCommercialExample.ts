@@ -56,7 +56,9 @@ const main = async function () {
         amount: 1,
         txOptions: { waitForTransaction: true },
     })
-    console.log(`License Token minted at transaction hash ${mintLicenseResponse.txHash}, License ID: ${mintLicenseResponse.licenseTokenId}`)
+    console.log(
+        `License Token minted at transaction hash ${mintLicenseResponse.txHash}, License IDs: ${mintLicenseResponse.licenseTokenIds}`
+    )
 
     // 5. Mint deriviative IP Asset using your license
     //
@@ -77,7 +79,7 @@ const main = async function () {
     )
     const linkDerivativeResponse = await client.ipAsset.registerDerivativeWithLicenseTokens({
         childIpId: registeredIpAssetDerivativeResponse.ipId as Address,
-        licenseTokenIds: [mintLicenseResponse.licenseTokenId as bigint],
+        licenseTokenIds: mintLicenseResponse.licenseTokenIds as bigint[],
         txOptions: { waitForTransaction: true },
     })
     console.log(`Derivative IPA linked to parent at transaction hash ${linkDerivativeResponse.txHash}`)
