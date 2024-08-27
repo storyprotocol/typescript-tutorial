@@ -12,7 +12,7 @@ const main = async function () {
     const config: StoryConfig = {
         account: account,
         transport: http(RPCProviderUrl),
-        chainId: 'sepolia',
+        chainId: 'iliad',
     }
     const client = StoryClient.newClient(config)
 
@@ -22,11 +22,12 @@ const main = async function () {
     const tokenId = await mintNFT()
     const registeredIpAssetResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
-        tokenId: tokenId,
-        metadata: {
-            metadataURI: 'test-uri',
-            metadataHash: toHex('test-metadata-hash', { size: 32 }),
+        tokenId: tokenId!,
+        ipMetadata: {
+            ipMetadataURI: 'test-uri',
+            ipMetadataHash: toHex('test-metadata-hash', { size: 32 }),
             nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
+            nftMetadataURI: 'test-nft-uri',
         },
         txOptions: { waitForTransaction: true },
     })
@@ -66,11 +67,12 @@ const main = async function () {
     const derivativeTokenId = await mintNFT()
     const registeredIpAssetDerivativeResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
-        tokenId: derivativeTokenId,
-        metadata: {
-            metadataURI: 'test-uri',
-            metadataHash: toHex('test-metadata-hash', { size: 32 }),
+        tokenId: derivativeTokenId!,
+        ipMetadata: {
+            ipMetadataURI: 'test-uri',
+            ipMetadataHash: toHex('test-metadata-hash', { size: 32 }),
             nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
+            nftMetadataURI: 'test-nft-uri',
         },
         txOptions: { waitForTransaction: true },
     })
