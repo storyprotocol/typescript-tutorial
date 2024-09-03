@@ -1,10 +1,7 @@
 import { defineChain } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 
-// Set up your wallet for this tutorial.
-// - Add your private key to your .env file.
-// - Add your rpc provider url to your .env file
-//      - We recommend the Sepolia test network: https://rpc.ankr.com/eth_sepolia
+// Add your private key to your .env file.
 const privateKey: Address = `0x${process.env.WALLET_PRIVATE_KEY}`
 export const account: Account = privateKeyToAccount(privateKey)
 
@@ -14,8 +11,8 @@ export const NonCommercialSocialRemixingTermsId = '1'
 // A NFT contract address that will be used to represent your IP Assets
 export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0x322813fd9a801c5507c9de605d63cea4f2ce6c44'
 
-// Sepolia testnet. You can provide your own by going to Alchemy, creating a test Sepolia app,
-// and get a free RPC provider URL.
+// Add your rpc provider url to your .env file
+// You can select from one of these: https://docs.story.foundation/docs/story-network#-rpcs
 export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://testnet.storyrpc.io'
 
 // Mock token contract for paying License Token
