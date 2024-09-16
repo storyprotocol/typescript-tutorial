@@ -6,12 +6,15 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "commercial": "npx ts-node ./scripts/commercialExample.ts",
-        "non-commercial": "npx ts-node ./scripts/nonCommercialExample.ts"
+        "non-commercial": "npx ts-node ./scripts/nonCommercialExample.ts",
+        "metadata": "npx ts-node ./scripts/metadataExample.ts",
+        "create-spg-collection": "npx ts-node ./scripts/utils/createSpgNftCollection.ts"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@story-protocol/core-sdk": "^1.0.0-rc.20 ",
+        "@pinata/sdk": "^2.1.0",
+        "@story-protocol/core-sdk": "^1.0.0-rc.22 ",
         "ts-node": "^10.9.2",
         "viem": "^2.8.12"
     },
