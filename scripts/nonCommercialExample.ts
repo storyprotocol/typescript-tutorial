@@ -69,10 +69,10 @@ const main = async function () {
         ipId: registeredIpAssetResponse.ipId as Address,
         txOptions: { waitForTransaction: true },
     })
-    if (!attachLicenseTermsResponse.success) {
-        console.log(`License Terms ID ${registerPILTermsResponse.licenseTermsId} already attached to this IPA.`)
-    } else {
+    if (attachLicenseTermsResponse.success) {
         console.log(`Attached License Terms to IP at transaction hash ${attachLicenseTermsResponse.txHash}`)
+    } else {
+        console.log(`License Terms ID ${registerPILTermsResponse.licenseTermsId} already attached to this IPA.`)
     }
 
     // 5. Mint License
