@@ -5,7 +5,7 @@ import { account, RPCProviderUrl } from './utils'
 const main = async function () {
     // 1. Set up your Story Config
     //
-    // Docs: https://docs.storyprotocol.xyz/docs/typescript-sdk-setup
+    // Docs: https://docs.story.foundation/docs/typescript-sdk-setup
     const config: StoryConfig = {
         account: account,
         transport: http(RPCProviderUrl),

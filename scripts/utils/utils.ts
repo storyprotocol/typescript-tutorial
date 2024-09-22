@@ -5,7 +5,7 @@ import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 const privateKey: Address = `0x${process.env.WALLET_PRIVATE_KEY}`
 export const account: Account = privateKeyToAccount(privateKey)
 
-// This is a pre-configured PIL Flavor: https://docs.storyprotocol.xyz/docs/pil-flavors
+// This is a pre-configured PIL Flavor: https://docs.story.foundation/docs/pil-flavors
 export const NonCommercialSocialRemixingTermsId = '1'
 
 // A NFT contract address that will be used to represent your IP Assets
