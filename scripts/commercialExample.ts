@@ -49,7 +49,7 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/register-pil-terms#create-a-commercial-use-license
     const commercialUseParams = {
         currency: CurrencyAddress,
-        mintingFee: '1',
+        defaultMintingFee: '1',
     }
     const registerPILTermsResponse: RegisterPILResponse = await client.license.registerCommercialUsePIL({
         ...commercialUseParams,

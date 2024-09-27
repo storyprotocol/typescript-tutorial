@@ -51,7 +51,7 @@ const main = async function () {
     // 5. Register the NFT as an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/spg-functions#mint--register--attach-terms
-    const registeredIpAssetResponse: CreateIpAssetWithPilTermsResponse = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
+    const response: CreateIpAssetWithPilTermsResponse = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         nftContract: NFTContractAddress,
         pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
         ipMetadata: {
@@ -62,8 +62,8 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Root IPA created at transaction hash ${registeredIpAssetResponse.txHash}, IPA ID: ${registeredIpAssetResponse.ipId}`)
-    console.log(`View on the explorer: https://explorer.story.foundation/ipa/${registeredIpAssetResponse.ipId}`)
+    console.log(`Root IPA created at transaction hash ${response.txHash}, IPA ID: ${response.ipId}`)
+    console.log(`View on the explorer: https://explorer.story.foundation/ipa/${response.ipId}`)
 }
 
 main()

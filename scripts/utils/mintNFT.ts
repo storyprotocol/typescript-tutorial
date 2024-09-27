@@ -1,5 +1,6 @@
 import { http, createWalletClient, createPublicClient, Address } from 'viem'
-import { NFTContractAddress, RPCProviderUrl, account, iliad } from './utils'
+import { NFTContractAddress, RPCProviderUrl, account } from './utils'
+import { iliad } from '@story-protocol/core-sdk'
 
 const baseConfig = {
     chain: iliad,
