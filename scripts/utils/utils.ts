@@ -1,4 +1,3 @@
-import { defineChain } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 
 // Add your private key to your .env file.
