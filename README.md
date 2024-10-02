@@ -1,18 +1,24 @@
 # Story Protocol TypeScript SDK Examples
 
-### Install the Dependencies
+### Get Started
 
-```
-npm install
-```
+1. Install the dependencies:
+
+    ```
+    npm install
+    ```
+
+2. Rename the `.env.example` file to `.env`
+
+3. Read the docs below associated with the example you want to run
 
 ## 📄 Run Non-Commercial Example
 
 1. Add your Story Network Testnet wallet's private key to `.env` file:
 
-```
-WALLET_PRIVATE_KEY=<YOUR_WALLET_PRIVATE_KEY>
-```
+    ```
+    WALLET_PRIVATE_KEY=<YOUR_WALLET_PRIVATE_KEY>
+    ```
 
 2. `npm run non-commercial`
 
