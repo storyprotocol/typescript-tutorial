@@ -54,10 +54,10 @@
 
 3. Create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
 
-    2a. Look at the console output, and copy the NFT contract address. Add that value as `NFT_CONTRACT_ADDRESS` to your `.env` file:
+    2a. Look at the console output, and copy the NFT contract address. Add that value as `SPG_NFT_CONTRACT_ADDRESS` to your `.env` file:
 
     ```
-    NFT_CONTRACT_ADDRESS=<NFT_CONTRACT_ADDRESS>
+    SPG_NFT_CONTRACT_ADDRESS=<SPG_NFT_CONTRACT_ADDRESS>
     ```
 
 4. `npm run metadata`
