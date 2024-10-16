@@ -8,7 +8,7 @@ export const account: Account = privateKeyToAccount(privateKey)
 export const NonCommercialSocialRemixingTermsId = '1'
 
 // A NFT contract address that will be used to represent your IP Assets
-export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0x322813fd9a801c5507c9de605d63cea4f2ce6c44'
+export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0xd2a4a4Cb40357773b658BECc66A6c165FD9Fc485'
 export const SPGNFTContractAddress: Address =
     (process.env.SPG_NFT_CONTRACT_ADDRESS as Address) || '0x9BDca7dbdd7cFB7984993e6EcEbB91DAE360f791'
 

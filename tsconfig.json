@@ -20,6 +20,5 @@
         "module": "CommonJS",
         "outDir": "dist"
     },
-    "exclude": ["node_modules"],
-    "include": ["scripts/nonCommercialExample.ts", "scripts/commercialExample.ts"]
+    "exclude": ["node_modules"]
 }

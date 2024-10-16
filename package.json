@@ -5,9 +5,10 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "commercial": "npx ts-node ./scripts/commercialExample.ts",
-        "non-commercial": "npx ts-node ./scripts/nonCommercialExample.ts",
-        "metadata": "npx ts-node ./scripts/metadataExample.ts",
+        "mint-and-register": "npx ts-node ./scripts/simpleMintAndRegister.ts",
+        "mint-and-register-spg": "npx ts-node ./scripts/simpleMintAndRegisterSpg.ts",
+        "register-deriv-non-com": "npx ts-node ./scripts/registerDerivativeNonCommercial.ts",
+        "register-deriv-com": "npx ts-node ./scripts/registerDerivativeCommercial.ts",
         "create-spg-collection": "npx ts-node ./scripts/utils/createSpgNftCollection.ts"
     },
     "author": "",

@@ -1,6 +1,7 @@
 import { http, createWalletClient, createPublicClient, Address } from 'viem'
 import { NFTContractAddress, RPCProviderUrl, account } from './utils'
 import { iliad } from '@story-protocol/core-sdk'
+import { defaultNftContractAbi } from './defaultNftContractAbi'
 
 const baseConfig = {
     chain: iliad,
@@ -12,22 +13,14 @@ export const walletClient = createWalletClient({
     account,
 })
 
-export async function mintNFT(): Promise<number | undefined> {
+export async function mintNFT(to: Address, uri: string): Promise<number | undefined> {
     console.log('Minting a new NFT...')
 
     const { request } = await publicClient.simulateContract({
-        abi: [
-            {
-                inputs: [{ internalType: 'address', name: 'to', type: 'address' }],
-                name: 'mint',
-                outputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
-                stateMutability: 'nonpayable',
-                type: 'function',
-            },
-        ],
         address: NFTContractAddress,
-        functionName: 'mint',
-        args: [account.address as Address],
+        functionName: 'mintNFT',
+        args: [to, uri],
+        abi: defaultNftContractAbi,
     })
     const hash = await walletClient.writeContract(request)
     const { logs } = await publicClient.waitForTransactionReceipt({
