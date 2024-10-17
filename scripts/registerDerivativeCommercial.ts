@@ -35,8 +35,8 @@ const main = async function () {
         nftContract: NFTContractAddress,
         tokenId: tokenId!,
         pilType: PIL_TYPE.COMMERCIAL_USE,
-        mintingFee: 1, // empty - doesn't apply
-        currency: CurrencyAddress, // empty - doesn't apply
+        mintingFee: 1,
+        currency: CurrencyAddress,
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
