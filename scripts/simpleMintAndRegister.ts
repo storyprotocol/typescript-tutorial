@@ -1,4 +1,4 @@
-import { IpMetadata, PIL_TYPE, RegisterIpAndAttachPilTermsResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { AddressZero, IpMetadata, PIL_TYPE, RegisterIpAndAttachPilTermsResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
 import { http } from 'viem'
 import { mintNFT } from './utils/mintNFT'
 import { NFTContractAddress, RPCProviderUrl, account } from './utils/utils'
@@ -59,7 +59,7 @@ const main = async function () {
         tokenId: tokenId!,
         pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
         mintingFee: 0, // empty - doesn't apply
-        currency: '0x0', // empty - doesn't apply
+        currency: AddressZero, // empty - doesn't apply
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,
