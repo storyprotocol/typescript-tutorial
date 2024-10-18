@@ -50,6 +50,8 @@
     SPG_NFT_CONTRACT_ADDRESS=<SPG_NFT_CONTRACT_ADDRESS>
     ```
 
+    **NOTE: You will only have to do this one time. Once you create an SPG collection, you can run this script as many times as you'd like.**
+
 4. `npm run mint-and-register-spg`
 
 ## 🖼️ Run "Register Derivative Non-Commercial" Example
