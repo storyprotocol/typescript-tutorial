@@ -5,7 +5,7 @@ import { uploadJSONToIPFS } from './utils/uploadToIpfs'
 import { createHash } from 'crypto'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README
-// which contains instructions for running this metadata example.
+// which contains instructions for running this "Simple Mint and Register SPG" example.
 
 const main = async function () {
     // 1. Set up your Story Config

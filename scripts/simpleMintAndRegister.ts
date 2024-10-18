@@ -5,7 +5,8 @@ import { NFTContractAddress, RPCProviderUrl, account } from './utils/utils'
 import { uploadJSONToIPFS } from './utils/uploadToIpfs'
 import { createHash } from 'crypto'
 
-// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains instructions for running this non-commercial example.
+// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
+// instructions for running this "Simple Mint and Register" example.
 
 const main = async function () {
     // 1. Set up your Story Config

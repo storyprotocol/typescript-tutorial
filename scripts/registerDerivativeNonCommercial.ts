@@ -3,7 +3,8 @@ import { Address, http, toHex } from 'viem'
 import { mintNFT } from './utils/mintNFT'
 import { NFTContractAddress, NonCommercialSocialRemixingTermsId, RPCProviderUrl, account } from './utils/utils'
 
-// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains instructions for running this non-commercial example.
+// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains instructions
+// for running this "Register Derivative Non-Commercial" example.
 
 const main = async function () {
     // 1. Set up your Story Config
