@@ -4,7 +4,6 @@ import {
     PIL_TYPE,
     RegisterDerivativeResponse,
     RegisterIpAndAttachPilTermsResponse,
-    RegisterIpAndMakeDerivativeResponse,
     RegisterIpResponse,
     SnapshotResponse,
     StoryClient,
