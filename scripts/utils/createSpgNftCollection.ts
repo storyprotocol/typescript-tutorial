@@ -1,5 +1,5 @@
 import { StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { http } from 'viem'
+import { http, zeroAddress } from 'viem'
 import { account, RPCProviderUrl } from './utils'
 
 const main = async function () {
@@ -25,12 +25,16 @@ const main = async function () {
     const newCollection = await client.nftClient.createNFTCollection({
         name: 'Test NFT',
         symbol: 'TEST',
+        isPublicMinting: true,
+        mintOpen: true,
+        mintFeeRecipient: zeroAddress,
+        contractURI: '',
         txOptions: { waitForTransaction: true },
     })
 
     console.log(
         `New SPG NFT collection created at transaction hash ${newCollection.txHash}`,
-        `NFT contract address: ${newCollection.nftContract}`
+        `NFT contract address: ${newCollection.spgNftContract}`
     )
 }
 
