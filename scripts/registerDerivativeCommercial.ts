@@ -1,17 +1,16 @@
 import {
-    ClaimRevenueResponse,
-    CollectRoyaltyTokensResponse,
+    PayRoyaltyOnBehalfResponse,
     PIL_TYPE,
     RegisterDerivativeResponse,
     RegisterIpAndAttachPilTermsResponse,
     RegisterIpResponse,
-    SnapshotResponse,
     StoryClient,
     StoryConfig,
+    TransferToVaultAndSnapshotAndClaimByTokenBatchResponse,
 } from '@story-protocol/core-sdk'
-import { Address, http, toHex } from 'viem'
+import { Address, http, toHex, zeroAddress } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { CurrencyAddress, NFTContractAddress, RPCProviderUrl, account } from './utils/utils'
+import { CurrencyAddress, NFTContractAddress, RPCProviderUrl, RoyaltyPolicyLAP, account } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial" example.
@@ -30,12 +29,13 @@ const main = async function () {
     // 2. Register an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
-    const tokenId = await mintNFT(account.address, 'test-uri')
-    const registerIpResponse: RegisterIpAndAttachPilTermsResponse = await client.ipAsset.registerIpAndAttachPilTerms({
+    const parentTokenId = await mintNFT(account.address, 'test-uri')
+    const parentIp: RegisterIpAndAttachPilTermsResponse = await client.ipAsset.registerIpAndAttachPilTerms({
         nftContract: NFTContractAddress,
-        tokenId: tokenId!,
-        pilType: PIL_TYPE.COMMERCIAL_USE,
-        mintingFee: 1,
+        tokenId: parentTokenId!,
+        pilType: PIL_TYPE.COMMERCIAL_REMIX,
+        commercialRevShare: 50, // 50%
+        mintingFee: 0,
         currency: CurrencyAddress,
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
@@ -48,16 +48,16 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
     console.log(
-        `Root IPA created at transaction hash ${registerIpResponse.txHash}, IPA ID: ${registerIpResponse.ipId}, License Terms ID: ${registerIpResponse.licenseTermsId}`
+        `Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}, License Terms ID: ${parentIp.licenseTermsId}`
     )
 
     // 3. Register another (child) IP Asset
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
-    const derivativeTokenId = await mintNFT(account.address, 'test-uri')
-    const registerIpDerivativeResponse: RegisterIpResponse = await client.ipAsset.register({
+    const childTokenId = await mintNFT(account.address, 'test-uri')
+    const childIp: RegisterIpResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
-        tokenId: derivativeTokenId!,
+        tokenId: childTokenId!,
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -68,60 +68,45 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(
-        `Derivative IPA created at transaction hash ${registerIpDerivativeResponse.txHash}, IPA ID: ${registerIpDerivativeResponse.ipId}`
-    )
+    console.log(`Derivative IPA created at transaction hash ${childIp.txHash}, IPA ID: ${childIp.ipId}`)
 
     // 4. Make the Child IP Asset a Derivative of the Parent IP Asset
     //
     // Docs: https://docs.story.foundation/docs/spg-functions#register--derivative
     const linkDerivativeResponse: RegisterDerivativeResponse = await client.ipAsset.registerDerivative({
-        childIpId: registerIpDerivativeResponse.ipId as Address,
-        parentIpIds: [registerIpResponse.ipId as Address],
-        licenseTermsIds: [registerIpResponse.licenseTermsId as bigint],
+        childIpId: childIp.ipId as Address,
+        parentIpIds: [parentIp.ipId as Address],
+        licenseTermsIds: [parentIp.licenseTermsId as bigint],
         txOptions: { waitForTransaction: true },
     })
     console.log(`Derivative linked at transaction hash ${linkDerivativeResponse.txHash}`)
 
-    ////
-    // NOTE FOR THE FOLLOWING SECTIONS: This is not a very good
-    // example of royalty because there isn't any royalty to collect.
-    // If someone had minted a derivative of the derivative and paid
-    // money to mint the License Token to do so, then the root IP Asset
-    // could claim some revenue. This is just here to show you how it
-    // would be done.
-    // Furthermore, it may not even work in practice because
-    // snapshotting too soon after royalty collection may not work.
-    // Again, this is just to show you what code would look like.
-    ////
-
-    // 5. Collect Royalty Tokens
+    // 5. Pay Royalty
+    // NOTE: You have to approve the RoyaltyModule to spend 2 SUSD on your behalf first. See README for instructions.
     //
-    // Docs: https://docs.story.foundation/docs/collect-and-claim-royalty#collect-royalty-tokens
-    const collectRoyaltyTokensResponse: CollectRoyaltyTokensResponse = await client.royalty.collectRoyaltyTokens({
-        parentIpId: registerIpResponse.ipId as Address,
-        royaltyVaultIpId: registerIpDerivativeResponse.ipId as Address,
+    // Docs: https://docs.story.foundation/docs/pay-ipa
+    const payRoyalty: PayRoyaltyOnBehalfResponse = await client.royalty.payRoyaltyOnBehalf({
+        receiverIpId: childIp.ipId as Address,
+        payerIpId: zeroAddress,
+        token: CurrencyAddress,
+        amount: 2,
         txOptions: { waitForTransaction: true },
     })
-    console.log(
-        `Collected royalty token ${collectRoyaltyTokensResponse.royaltyTokensCollected} at transaction hash ${collectRoyaltyTokensResponse.txHash}`
-    )
+    console.log(`Paid royalty at transaction hash ${payRoyalty.txHash}`)
 
     // 6. Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/collect-and-claim-royalty#claim-revenue
-    const snapshotResponse: SnapshotResponse = await client.royalty.snapshot({
-        royaltyVaultIpId: registerIpDerivativeResponse.ipId as Address,
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Took a snapshot with ID ${snapshotResponse.snapshotId} at transaction hash ${snapshotResponse.txHash}`)
-    const claimRevenueResponse: ClaimRevenueResponse = await client.royalty.claimRevenue({
-        snapshotIds: [snapshotResponse.snapshotId as bigint],
-        royaltyVaultIpId: registerIpDerivativeResponse.ipId as Address,
-        token: CurrencyAddress,
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Claimed revenue token ${claimRevenueResponse.claimableToken} at transaction hash ${claimRevenueResponse.txHash}`)
+    // Docs: https://docs.story.foundation/docs/claim-revenue
+    const claimRevenue: TransferToVaultAndSnapshotAndClaimByTokenBatchResponse =
+        await client.royalty.transferToVaultAndSnapshotAndClaimByTokenBatch({
+            ancestorIpId: parentIp.ipId as Address,
+            claimer: parentIp.ipId as Address,
+            royaltyClaimDetails: [
+                { childIpId: childIp.ipId as Address, royaltyPolicy: RoyaltyPolicyLAP, currencyToken: CurrencyAddress, amount: 1 },
+            ],
+            txOptions: { waitForTransaction: true },
+        })
+    console.log(`Claimed revenue: ${claimRevenue.amountsClaimed} at snapshotId ${claimRevenue.snapshotId}`)
 }
 
 main()

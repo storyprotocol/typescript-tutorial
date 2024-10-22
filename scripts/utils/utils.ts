@@ -20,3 +20,6 @@ export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://testnet.s
 // This address must be whitelisted by the protocol. You can see the
 // currently whitelisted addresses here: https://docs.story.foundation/docs/royalty-module#whitelisted-revenue-tokens
 export const CurrencyAddress: Address = (process.env.CURRENCY_ADDRESS as Address) || '0x91f6F05B08c16769d3c85867548615d270C42fC7'
+
+// Docs: https://docs.story.foundation/docs/deployed-smart-contracts
+export const RoyaltyPolicyLAP: Address = '0x793Df8d32c12B0bE9985FFF6afB8893d347B6686'

@@ -51,7 +51,7 @@ const main = async function () {
     //
     // Docs: https://docs.story.foundation/docs/spg-functions#mint--register--attach-terms
     const response: CreateIpAssetWithPilTermsResponse = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
-        nftContract: SPGNFTContractAddress,
+        spgNftContract: SPGNFTContractAddress,
         pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
