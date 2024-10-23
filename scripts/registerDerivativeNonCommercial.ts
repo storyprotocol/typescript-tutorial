@@ -38,7 +38,7 @@ const main = async function () {
 
     // 3. Register a Derivative IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/spg-functions#register--derivative
+    // Docs: https://docs.story.foundation/docs/register-a-derivative#existing-nft-register-ip-and-link-to-existing-parent-ip
     const derivativeTokenId = await mintNFT(account.address, 'test-uri')
     const registeredIpDerivativeResponse: RegisterIpAndMakeDerivativeResponse = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,

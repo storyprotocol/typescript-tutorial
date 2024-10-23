@@ -72,7 +72,7 @@ const main = async function () {
 
     // 4. Make the Child IP Asset a Derivative of the Parent IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/spg-functions#register--derivative
+    // Docs: https://docs.story.foundation/docs/register-a-derivative#existing-child-ip--parent-ip
     const linkDerivativeResponse: RegisterDerivativeResponse = await client.ipAsset.registerDerivative({
         childIpId: childIp.ipId as Address,
         parentIpIds: [parentIp.ipId as Address],
