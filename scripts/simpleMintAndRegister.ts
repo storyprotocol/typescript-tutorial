@@ -15,7 +15,7 @@ const main = async function () {
     const config: StoryConfig = {
         account: account,
         transport: http(RPCProviderUrl),
-        chainId: 'iliad',
+        chainId: 'odyssey',
     }
     const client = StoryClient.newClient(config)
 
@@ -70,7 +70,7 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
     console.log(`Root IPA created at transaction hash ${response.txHash}, IPA ID: ${response.ipId}`)
-    console.log(`View on the explorer: https://explorer.story.foundation/ipa/${response.ipId}`)
+    console.log(`View on the explorer: https://odyssey.explorer.story.foundation/ipa/${response.ipId}`)
 }
 
 main()

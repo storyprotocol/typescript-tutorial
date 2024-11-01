@@ -13,7 +13,7 @@ const main = async function () {
     const config: StoryConfig = {
         account: account,
         transport: http(RPCProviderUrl),
-        chainId: 'iliad',
+        chainId: 'odyssey',
     }
     const client = StoryClient.newClient(config)
 
