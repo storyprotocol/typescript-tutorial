@@ -14,7 +14,7 @@ export const SPGNFTContractAddress: Address =
 
 // Add your rpc provider url to your .env file
 // You can select from one of these: https://docs.story.foundation/docs/story-network#-rpcs
-export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://odyssey.storyrpc.io'
+export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://rpc.odyssey.storyrpc.io'
 
 // The currency used for paying License Tokens or tipping
 // This address must be whitelisted by the protocol. You can see the
