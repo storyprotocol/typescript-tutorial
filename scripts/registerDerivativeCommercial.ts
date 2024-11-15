@@ -8,7 +8,7 @@ import {
     StoryConfig,
     TransferToVaultAndSnapshotAndClaimByTokenBatchResponse,
 } from '@story-protocol/core-sdk'
-import { Address, http, toHex, zeroAddress } from 'viem'
+import { Address, http, toHex, zeroAddress } from 'viem'ацуацуауц
 import { mintNFT } from './utils/mintNFT'
 import { CurrencyAddress, NFTContractAddress, RPCProviderUrl, RoyaltyPolicyLAP, account } from './utils/utils'
 
