@@ -17,13 +17,13 @@
 1. Add your Story Network Testnet wallet's private key to `.env` file:
 
     ```
-    WALLET_PRIVATE_KEY=<YOUR_WALLET_PRIVATE_KEY>
+    WALLET_PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
     ```
 
 2. Go to [Pinata](https://pinata.cloud/) and create a new API key. Add the JWT to your `.env` file:
 
     ```
-    PINATA_JWT=<YOUR_PINATA_JWT>
+    PINATA_JWT=YOUR_PINATA_JWT
     ```
 
 3. `npm run mint-and-register`
@@ -33,13 +33,13 @@
 1. Add your Story Network Testnet wallet's private key to `.env` file:
 
     ```
-    WALLET_PRIVATE_KEY=<YOUR_WALLET_PRIVATE_KEY>
+    WALLET_PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
     ```
 
 2. Go to [Pinata](https://pinata.cloud/) and create a new API key. Add the JWT to your `.env` file:
 
     ```
-    PINATA_JWT=<YOUR_PINATA_JWT>
+    PINATA_JWT=YOUR_PINATA_JWT
     ```
 
 3. Create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
@@ -47,7 +47,7 @@
     3a. Look at the console output, and copy the NFT contract address. Add that value as `SPG_NFT_CONTRACT_ADDRESS` to your `.env` file:
 
     ```
-    SPG_NFT_CONTRACT_ADDRESS=<SPG_NFT_CONTRACT_ADDRESS>
+    SPG_NFT_CONTRACT_ADDRESS=SPG_NFT_CONTRACT_ADDRESS
     ```
 
     **NOTE: You will only have to do this one time. Once you create an SPG collection, you can run this script as many times as you'd like.**
@@ -59,7 +59,7 @@
 1. Add your Story Network Testnet wallet's private key to `.env` file:
 
     ```
-    WALLET_PRIVATE_KEY=<YOUR_WALLET_PRIVATE_KEY>
+    WALLET_PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
     ```
 
 2. `npm run register-deriv-non-com`
@@ -69,7 +69,7 @@
 1. Add your Story Network Testnet wallet's private key to `.env` file:
 
     ```
-    WALLET_PRIVATE_KEY=<YOUR_WALLET_PRIVATE_KEY>
+    WALLET_PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
     ```
 
 2. You will be paying for the License Token using a [test ERC-20 token](https://odyssey.storyscan.xyz/address/0xC0F6E387aC0B324Ec18EAcf22EE7271207dCE3d5).
