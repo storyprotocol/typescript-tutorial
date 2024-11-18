@@ -10,7 +10,7 @@ import {
 } from '@story-protocol/core-sdk'
 import { Address, http, toHex, zeroAddress } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { CurrencyAddress, NFTContractAddress, RPCProviderUrl, RoyaltyPolicyLAP, account } from './utils/utils'
+import { SUSDAddress, NFTContractAddress, RPCProviderUrl, RoyaltyPolicyLAP, account } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial" example.
@@ -36,7 +36,7 @@ const main = async function () {
         pilType: PIL_TYPE.COMMERCIAL_REMIX,
         commercialRevShare: 50, // 50%
         mintingFee: 0,
-        currency: CurrencyAddress,
+        currency: SUSDAddress,
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -88,7 +88,7 @@ const main = async function () {
     const payRoyalty: PayRoyaltyOnBehalfResponse = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
-        token: CurrencyAddress,
+        token: SUSDAddress,
         amount: 2,
         txOptions: { waitForTransaction: true },
     })
@@ -102,7 +102,7 @@ const main = async function () {
             ancestorIpId: parentIp.ipId as Address,
             claimer: parentIp.ipId as Address,
             royaltyClaimDetails: [
-                { childIpId: childIp.ipId as Address, royaltyPolicy: RoyaltyPolicyLAP, currencyToken: CurrencyAddress, amount: 1 },
+                { childIpId: childIp.ipId as Address, royaltyPolicy: RoyaltyPolicyLAP, currencyToken: SUSDAddress, amount: 1 },
             ],
             txOptions: { waitForTransaction: true },
         })

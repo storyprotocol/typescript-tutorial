@@ -18,7 +18,7 @@ export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://rpc.odyss
 // The currency used for paying License Tokens or tipping
 // This address must be whitelisted by the protocol. You can see the
 // currently whitelisted addresses here: https://docs.story.foundation/docs/royalty-module#whitelisted-revenue-tokens
-export const CurrencyAddress: Address = (process.env.CURRENCY_ADDRESS as Address) || '0xC0F6E387aC0B324Ec18EAcf22EE7271207dCE3d5'
+export const SUSDAddress: Address = '0xC0F6E387aC0B324Ec18EAcf22EE7271207dCE3d5'
 
 // Docs: https://docs.story.foundation/docs/deployed-smart-contracts
 export const RoyaltyPolicyLAP: Address = '0x28b4F70ffE5ba7A26aEF979226f77Eb57fb9Fdb6'
