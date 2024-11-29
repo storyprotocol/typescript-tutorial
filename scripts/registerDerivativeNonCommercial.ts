@@ -20,10 +20,10 @@ const main = async function () {
     // 2. Register an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
-    const tokenId = await mintNFT(account.address, 'test-uri')
-    const registeredIpResponse: RegisterIpResponse = await client.ipAsset.register({
+    const parentTokenId = await mintNFT(account.address, 'test-uri')
+    const parentIp: RegisterIpResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
-        tokenId: tokenId!,
+        tokenId: parentTokenId!,
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -34,17 +34,17 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Root IPA created at transaction hash ${registeredIpResponse.txHash}, IPA ID: ${registeredIpResponse.ipId}`)
+    console.log(`Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}`)
 
     // 3. Register a Derivative IP Asset
     //
     // Docs: https://docs.story.foundation/docs/register-a-derivative#existing-nft-register-ip-and-link-to-existing-parent-ip
-    const derivativeTokenId = await mintNFT(account.address, 'test-uri')
-    const registeredIpDerivativeResponse: RegisterIpAndMakeDerivativeResponse = await client.ipAsset.registerDerivativeIp({
+    const childTokenId = await mintNFT(account.address, 'test-uri')
+    const childIp: RegisterIpAndMakeDerivativeResponse = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,
-        tokenId: derivativeTokenId!,
+        tokenId: childTokenId!,
         derivData: {
-            parentIpIds: [registeredIpResponse.ipId as Address],
+            parentIpIds: [parentIp.ipId as Address],
             licenseTermsIds: [NonCommercialSocialRemixingTermsId],
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
@@ -57,9 +57,7 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(
-        `Derivative IPA created at transaction hash ${registeredIpDerivativeResponse.txHash}, IPA ID: ${registeredIpDerivativeResponse.ipId}`
-    )
+    console.log(`Derivative IPA created at transaction hash ${childIp.txHash}, IPA ID: ${childIp.ipId}`)
 }
 
 main()

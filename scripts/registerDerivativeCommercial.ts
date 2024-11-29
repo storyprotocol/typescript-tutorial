@@ -3,7 +3,7 @@ import {
     PIL_TYPE,
     RegisterDerivativeResponse,
     RegisterIpAndAttachPilTermsResponse,
-    RegisterIpResponse,
+    RegisterIpAndMakeDerivativeResponse,
     StoryClient,
     StoryConfig,
     TransferToVaultAndSnapshotAndClaimByTokenBatchResponse,
@@ -55,9 +55,13 @@ const main = async function () {
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
     const childTokenId = await mintNFT(account.address, 'test-uri')
-    const childIp: RegisterIpResponse = await client.ipAsset.register({
+    const childIp: RegisterIpAndMakeDerivativeResponse = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,
         tokenId: childTokenId!,
+        derivData: {
+            parentIpIds: [parentIp.ipId as Address],
+            licenseTermsIds: [parentIp.licenseTermsId as bigint],
+        },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -70,18 +74,7 @@ const main = async function () {
     })
     console.log(`Derivative IPA created at transaction hash ${childIp.txHash}, IPA ID: ${childIp.ipId}`)
 
-    // 4. Make the Child IP Asset a Derivative of the Parent IP Asset
-    //
-    // Docs: https://docs.story.foundation/docs/register-a-derivative#existing-child-ip--parent-ip
-    const linkDerivativeResponse: RegisterDerivativeResponse = await client.ipAsset.registerDerivative({
-        childIpId: childIp.ipId as Address,
-        parentIpIds: [parentIp.ipId as Address],
-        licenseTermsIds: [parentIp.licenseTermsId as bigint],
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Derivative linked at transaction hash ${linkDerivativeResponse.txHash}`)
-
-    // 5. Pay Royalty
+    // 4. Pay Royalty
     // NOTE: You have to approve the RoyaltyModule to spend 2 SUSD on your behalf first. See README for instructions.
     //
     // Docs: https://docs.story.foundation/docs/pay-ipa
@@ -94,7 +87,7 @@ const main = async function () {
     })
     console.log(`Paid royalty at transaction hash ${payRoyalty.txHash}`)
 
-    // 6. Claim Revenue
+    // 5. Claim Revenue
     //
     // Docs: https://docs.story.foundation/docs/claim-revenue
     const claimRevenue: TransferToVaultAndSnapshotAndClaimByTokenBatchResponse =
