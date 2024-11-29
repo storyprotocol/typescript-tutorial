@@ -1,17 +1,17 @@
 import {
-  PayRoyaltyOnBehalfResponse,
-  PIL_TYPE,
-  RegisterIpAndAttachPilTermsResponse,
-  StoryClient,
-  StoryConfig,
-  TransferToVaultAndSnapshotAndClaimByTokenBatchResponse,
-  MintAndRegisterIpAndMakeDerivativeResponse,
+    PayRoyaltyOnBehalfResponse,
+    PIL_TYPE,
+    RegisterIpAndAttachPilTermsResponse,
+    StoryClient,
+    StoryConfig,
+    TransferToVaultAndSnapshotAndClaimByTokenBatchResponse,
+    MintAndRegisterIpAndMakeDerivativeResponse,
 } from '@story-protocol/core-sdk'
 import { Address, http, toHex, zeroAddress } from 'viem'
 import { SUSDAddress, RPCProviderUrl, RoyaltyPolicyLAP, account, SPGNFTContractAddress } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
-// instructions for running this "Register Derivative Commercial" example.
+// instructions for running this "Register Derivative Commercial SPG" example.
 
 const main = async function () {
     // 1. Set up your Story Config

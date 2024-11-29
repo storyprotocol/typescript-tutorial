@@ -9,8 +9,7 @@ export const NonCommercialSocialRemixingTermsId = '1'
 
 // A NFT contract address that will be used to represent your IP Assets
 export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0x041B4F29183317Fd352AE57e331154b73F8a1D73'
-export const SPGNFTContractAddress: Address =
-    (process.env.SPG_NFT_CONTRACT_ADDRESS as Address) || '0x286d7Fb319CC1fDde68F876328c76CCd9E7aD990'
+export const SPGNFTContractAddress: Address = process.env.SPG_NFT_CONTRACT_ADDRESS as Address
 
 // Add your rpc provider url to your .env file
 // You can select from one of these: https://docs.story.foundation/docs/story-network#-rpcs
