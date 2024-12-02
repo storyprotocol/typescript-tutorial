@@ -49,8 +49,7 @@ const main = async function () {
 
     // 3. Mint and Register IP asset and make it a derivative of the parent IP Asset
     //
-    // Docs #1: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
-    // Docs #2: https://docs.story.foundation/docs/register-a-derivative#existing-child-ip--parent-ip
+    // Docs: https://docs.story.foundation/docs/register-a-derivative#/mint-nft-register-ip-and-link-to-existing-parent-ip
     const { txHash, childIpId }: MintAndRegisterIpAndMakeDerivativeResponse = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
         spgNftContract: SPGNFTContractAddress,
         derivData: {
