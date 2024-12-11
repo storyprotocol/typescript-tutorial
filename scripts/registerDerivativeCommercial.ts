@@ -1,7 +1,5 @@
 import {
     PayRoyaltyOnBehalfResponse,
-    PIL_TYPE,
-    RegisterDerivativeResponse,
     RegisterIpAndAttachPilTermsResponse,
     RegisterIpAndMakeDerivativeResponse,
     StoryClient,

@@ -1,4 +1,4 @@
-import { AddressZero, IpMetadata, PIL_TYPE, RegisterIpAndAttachPilTermsResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { IpMetadata, RegisterIpAndAttachPilTermsResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
 import { http } from 'viem'
 import { mintNFT } from './utils/mintNFT'
 import { NFTContractAddress, RPCProviderUrl, account } from './utils/utils'
