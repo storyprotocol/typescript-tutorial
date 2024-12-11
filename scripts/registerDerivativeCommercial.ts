@@ -10,7 +10,7 @@ import {
 } from '@story-protocol/core-sdk'
 import { Address, http, toHex, zeroAddress } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { SUSDAddress, NFTContractAddress, RPCProviderUrl, RoyaltyPolicyLAP, account } from './utils/utils'
+import { SUSDAddress, NFTContractAddress, RPCProviderUrl, RoyaltyPolicyLAP, account, createCommercialRemixTerms } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial" example.
@@ -33,10 +33,7 @@ const main = async function () {
     const parentIp: RegisterIpAndAttachPilTermsResponse = await client.ipAsset.registerIpAndAttachPilTerms({
         nftContract: NFTContractAddress,
         tokenId: parentTokenId!,
-        pilType: PIL_TYPE.COMMERCIAL_REMIX,
-        commercialRevShare: 50, // 50%
-        mintingFee: 0,
-        currency: SUSDAddress,
+        terms: [createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 })],
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -48,7 +45,7 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
     console.log(
-        `Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}, License Terms ID: ${parentIp.licenseTermsId}`
+        `Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}, License Terms IDs: ${parentIp.licenseTermsIds}`
     )
 
     // 3. Register another (child) IP Asset
@@ -60,7 +57,7 @@ const main = async function () {
         tokenId: childTokenId!,
         derivData: {
             parentIpIds: [parentIp.ipId as Address],
-            licenseTermsIds: [parentIp.licenseTermsId as bigint],
+            licenseTermsIds: parentIp.licenseTermsIds as bigint[],
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.

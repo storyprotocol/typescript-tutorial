@@ -8,7 +8,7 @@ import {
     MintAndRegisterIpAndMakeDerivativeResponse,
 } from '@story-protocol/core-sdk'
 import { Address, http, toHex, zeroAddress } from 'viem'
-import { SUSDAddress, RPCProviderUrl, RoyaltyPolicyLAP, account, SPGNFTContractAddress } from './utils/utils'
+import { SUSDAddress, RPCProviderUrl, RoyaltyPolicyLAP, account, SPGNFTContractAddress, createCommercialRemixTerms } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial SPG" example.
@@ -29,10 +29,7 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
     const parentIp: RegisterIpAndAttachPilTermsResponse = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         spgNftContract: SPGNFTContractAddress,
-        pilType: PIL_TYPE.COMMERCIAL_REMIX,
-        commercialRevShare: 50, // 50%
-        mintingFee: 0,
-        currency: SUSDAddress,
+        terms: [createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 })],
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -44,7 +41,7 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
     console.log(
-        `Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}, License Terms ID: ${parentIp.licenseTermsId}`
+        `Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}, License Terms ID: ${parentIp.licenseTermsIds}`
     )
 
     // 3. Mint and Register IP asset and make it a derivative of the parent IP Asset
@@ -54,7 +51,7 @@ const main = async function () {
         spgNftContract: SPGNFTContractAddress,
         derivData: {
             parentIpIds: [parentIp.ipId as Address],
-            licenseTermsIds: [parentIp.licenseTermsId as bigint],
+            licenseTermsIds: parentIp.licenseTermsIds as bigint[],
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.

@@ -58,9 +58,7 @@ const main = async function () {
     const response: RegisterIpAndAttachPilTermsResponse = await client.ipAsset.registerIpAndAttachPilTerms({
         nftContract: NFTContractAddress,
         tokenId: tokenId!,
-        pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
-        mintingFee: 0, // empty - doesn't apply
-        currency: AddressZero, // empty - doesn't apply
+        terms: [],
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,

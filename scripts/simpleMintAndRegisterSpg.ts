@@ -1,4 +1,4 @@
-import { CreateIpAssetWithPilTermsResponse, IpMetadata, PIL_TYPE, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { IpMetadata, MintAndRegisterIpAssetWithPilTermsResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
 import { http } from 'viem'
 import { RPCProviderUrl, SPGNFTContractAddress, account } from './utils/utils'
 import { uploadJSONToIPFS } from './utils/uploadToIpfs'
@@ -50,9 +50,9 @@ const main = async function () {
     // 5. Register the NFT as an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/attach-terms-to-an-ip-asset#mint-nft-register-as-ip-asset-and-attach-terms
-    const response: CreateIpAssetWithPilTermsResponse = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
+    const response: MintAndRegisterIpAssetWithPilTermsResponse = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         spgNftContract: SPGNFTContractAddress,
-        pilType: PIL_TYPE.NON_COMMERCIAL_REMIX,
+        terms: [],
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,
