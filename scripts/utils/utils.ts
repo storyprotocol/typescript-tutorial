@@ -1,4 +1,4 @@
-import { RegisterPILTermsRequest } from '@story-protocol/core-sdk/dist/declarations/src/types/resources/license'
+import { LicenseTerms } from '@story-protocol/core-sdk'
 import { zeroAddress } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 
@@ -25,23 +25,23 @@ export const SUSDAddress: Address = '0xC0F6E387aC0B324Ec18EAcf22EE7271207dCE3d5'
 // Docs: https://docs.story.foundation/docs/deployed-smart-contracts
 export const RoyaltyPolicyLAP: Address = '0x28b4F70ffE5ba7A26aEF979226f77Eb57fb9Fdb6'
 
-export function createCommercialRemixTerms(terms: { commercialRevShare: number; defaultMintingFee: number }): RegisterPILTermsRequest {
+export function createCommercialRemixTerms(terms: { commercialRevShare: number; defaultMintingFee: number }): LicenseTerms {
     return {
         transferable: true,
         royaltyPolicy: RoyaltyPolicyLAP,
-        defaultMintingFee: terms.defaultMintingFee,
-        expiration: 0,
+        defaultMintingFee: BigInt(terms.defaultMintingFee),
+        expiration: BigInt(0),
         commercialUse: true,
         commercialAttribution: true,
         commercializerChecker: zeroAddress,
         commercializerCheckerData: zeroAddress,
         commercialRevShare: terms.commercialRevShare,
-        commercialRevCeiling: 0,
+        commercialRevCeiling: BigInt(0),
         derivativesAllowed: true,
         derivativesAttribution: true,
         derivativesApproval: false,
         derivativesReciprocal: true,
-        derivativeRevCeiling: 0,
+        derivativeRevCeiling: BigInt(0),
         currency: SUSDAddress,
         uri: '',
     }
