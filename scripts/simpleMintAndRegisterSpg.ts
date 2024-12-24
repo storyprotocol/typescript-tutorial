@@ -40,12 +40,14 @@ const main = async function () {
         description: 'This NFT represents ownership of an IP Asset',
         image: 'https://i.imgur.com/gb59b2S.png',
     }
-
+    const calculateHash = (data: any): string {
+        return createHash('sha256').update(JSON.stringify(data)).digest('hex')
+    }
     // 4. Upload your IP and NFT Metadata to IPFS
     const ipIpfsHash = await uploadJSONToIPFS(ipMetadata)
-    const ipHash = createHash('sha256').update(JSON.stringify(ipMetadata)).digest('hex')
+    const ipHash = calculateHash(ipMetadata)
     const nftIpfsHash = await uploadJSONToIPFS(nftMetadata)
-    const nftHash = createHash('sha256').update(JSON.stringify(nftMetadata)).digest('hex')
+    const nftHash = calculateHash(nftMetadata)
 
     // 5. Register the NFT as an IP Asset
     //
