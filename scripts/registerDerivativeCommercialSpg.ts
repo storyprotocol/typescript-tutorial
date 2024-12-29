@@ -62,7 +62,7 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Derivative IPA created and linked at transaction hash ${txHash}, IPA ID: ${childIpId}}`)
+    console.log(`Derivative IPA created and linked at transaction hash ${txHash}, IPA ID: ${childIpId}`)
 
     // 4. Pay Royalty
     // NOTE: You have to approve the RoyaltyModule to spend 2 SUSD on your behalf first. See README for instructions.
