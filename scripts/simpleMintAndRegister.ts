@@ -23,8 +23,8 @@ const main = async function () {
     //
     // Docs: https://docs.story.foundation/docs/ipa-metadata-standard
     const ipMetadata: IpMetadata = client.ipAsset.generateIpMetadata({
-        title: 'My IP Asset',
-        description: 'This is a test IP asset',
+        title: 'Azuki #0',
+        description: 'Azuki Zero',
         attributes: [
             {
                 key: 'Rarity',
