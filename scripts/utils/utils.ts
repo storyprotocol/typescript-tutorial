@@ -1,6 +1,8 @@
 import { LicenseTerms } from '@story-protocol/core-sdk'
 import { zeroAddress } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
+import dotenv from 'dotenv'
+dotenv.config()
 
 // Add your private key to your .env file.
 const privateKey: Address = `0x${process.env.WALLET_PRIVATE_KEY}`

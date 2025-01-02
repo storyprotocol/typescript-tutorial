@@ -10,6 +10,7 @@
         "register-deriv-non-com": "npx ts-node ./scripts/registerDerivativeNonCommercial.ts",
         "register-deriv-com": "npx ts-node ./scripts/registerDerivativeCommercial.ts",
         "register-deriv-com-spg": "npx ts-node ./scripts/registerDerivativeCommercialSpg.ts",
+        "dispute-ip": "npx ts-node ./scripts/disputeIp.ts",
         "create-spg-collection": "npx ts-node ./scripts/utils/createSpgNftCollection.ts"
     },
     "author": "",
