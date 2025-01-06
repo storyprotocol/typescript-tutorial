@@ -1,7 +1,7 @@
 ## Description
 <!-- Add a description of the changes that this PR introduces -->
 Example:
-This pr adds user login function, includes：
+This PR adds user login function, includes：
 
 - 1. add user login page.
 - 2. ...
@@ -10,7 +10,7 @@ This pr adds user login function, includes：
 <!-- The test plan section indicates detailed steps on how to verify and test code changes. 
 You can list the test cases or test steps that need to be performed.-->
 Example: 
-- 1. Use different test accounts for login tests, including correct user names and passwords, and incorrect user names and passwords.
+- 1. Use different test accounts for login tests, including correct usernames and passwords, and incorrect usernames and passwords.
 - 2. ...
 
 ## Related Issue
