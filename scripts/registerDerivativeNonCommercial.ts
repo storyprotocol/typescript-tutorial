@@ -1,27 +1,16 @@
-import { RegisterIpAndMakeDerivativeResponse, RegisterIpResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { Address, http, toHex } from 'viem'
+import { Address, toHex } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { NFTContractAddress, NonCommercialSocialRemixingTermsId, RPCProviderUrl, account } from './utils/utils'
+import { NFTContractAddress, NonCommercialSocialRemixingTermsId, account, client } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains instructions
 // for running this "Register Derivative Non-Commercial" example.
 
 const main = async function () {
-    // 1. Set up your Story Config
-    //
-    // Docs: https://docs.story.foundation/docs/typescript-sdk-setup
-    const config: StoryConfig = {
-        account: account,
-        transport: http(RPCProviderUrl),
-        chainId: 'odyssey',
-    }
-    const client = StoryClient.newClient(config)
-
-    // 2. Register an IP Asset
+    // 1. Register an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
     const parentTokenId = await mintNFT(account.address, 'test-uri')
-    const parentIp: RegisterIpResponse = await client.ipAsset.register({
+    const parentIp = await client.ipAsset.register({
         nftContract: NFTContractAddress,
         tokenId: parentTokenId!,
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
@@ -36,11 +25,11 @@ const main = async function () {
     })
     console.log(`Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}`)
 
-    // 3. Register a Derivative IP Asset
+    // 2. Register a Derivative IP Asset
     //
     // Docs: https://docs.story.foundation/docs/register-a-derivative#existing-nft-register-ip-and-link-to-existing-parent-ip
     const childTokenId = await mintNFT(account.address, 'test-uri')
-    const childIp: RegisterIpAndMakeDerivativeResponse = await client.ipAsset.registerDerivativeIp({
+    const childIp = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,
         tokenId: childTokenId!,
         derivData: {

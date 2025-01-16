@@ -1,23 +1,13 @@
-import { RegisterIpAndAttachPilTermsResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { Address, http, toHex } from 'viem'
+import { RegisterIpAndAttachPilTermsResponse } from '@story-protocol/core-sdk'
+import { Address, toHex } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { NFTContractAddress, RPCProviderUrl, account } from './utils/utils'
+import { NFTContractAddress, account, client } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
-// instructions for running this "Simple Mint and Register" example.
+// instructions for running this "Dispute" example.
 
 const main = async function () {
-    // 1. Set up your Story Config
-    //
-    // Docs: https://docs.story.foundation/docs/typescript-sdk-setup
-    const config: StoryConfig = {
-        account: account,
-        transport: http(RPCProviderUrl),
-        chainId: 'odyssey',
-    }
-    const client = StoryClient.newClient(config)
-
-    // 2. Register an IP Asset
+    // 1. Register an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
     const tokenId = await mintNFT(account.address, 'test-uri')
@@ -36,7 +26,7 @@ const main = async function () {
     console.log(`Root IPA created at transaction hash ${ipResponse.txHash}, IPA ID: ${ipResponse.ipId}`)
     console.log(`View on the explorer: https://explorer.story.foundation/ipa/${ipResponse.ipId}`)
 
-    // 3. Raise a Dispute
+    // 2. Raise a Dispute
     //
     // Docs: https://docs.story.foundation/docs/dispute-module
     const disputeResponse = await client.dispute.raiseDispute({
