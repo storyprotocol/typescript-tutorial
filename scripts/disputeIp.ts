@@ -1,4 +1,3 @@
-import { RegisterIpAndAttachPilTermsResponse } from '@story-protocol/core-sdk'
 import { Address, toHex } from 'viem'
 import { mintNFT } from './utils/mintNFT'
 import { NFTContractAddress, account, client } from './utils/utils'
@@ -11,7 +10,7 @@ const main = async function () {
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
     const tokenId = await mintNFT(account.address, 'test-uri')
-    const ipResponse: RegisterIpAndAttachPilTermsResponse = await client.ipAsset.registerIpAndAttachPilTerms({
+    const ipResponse = await client.ipAsset.registerIpAndAttachPilTerms({
         nftContract: NFTContractAddress,
         tokenId: tokenId!,
         terms: [],
