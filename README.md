@@ -105,3 +105,13 @@
     **NOTE: You will only have to do this one time. Once you create an SPG collection, you can run this script as many times as you'd like.**
 
 4. `npm run register-deriv-com-short`
+
+## ❌ Run "Dispute IP" Example
+
+1. Add your Story Network Testnet wallet's private key to `.env` file:
+
+    ```
+    WALLET_PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
+    ```
+
+2. `npm run dispute-ip`
