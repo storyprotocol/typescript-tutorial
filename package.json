@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "mint-and-register": npm run register-deriv-com-short
         "mint-and-register": "npx ts-node ./scripts/simpleMintAndRegister.ts",
         "mint-and-register-spg": "npx ts-node ./scripts/simpleMintAndRegisterSpg.ts",
         "register-deriv-non-com": "npx ts-node ./scripts/registerDerivativeNonCommercial.ts",
