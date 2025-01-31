@@ -59,10 +59,17 @@ const main = async function () {
     })
     console.log(`Paid royalty at transaction hash ${payRoyalty.txHash}`)
 
-    // 4. Claim Revenue
-    //
-    // Docs: https://docs.story.foundation/docs/claim-revenue
-    const claimRevenue = await client.royalty.transferToVaultAndSnapshotAndClaimByTokenBatch({
+    // 4. Child Claim Revenue
+    const childClaimRevenue = await client.royalty.snapshotAndClaimByTokenBatch({
+        royaltyVaultIpId: childIpId as Address,
+        currencyTokens: [SUSDAddress],
+        claimer: childIpId as Address,
+        txOptions: { waitForTransaction: true },
+    })
+    console.log(`Child claimed revenue: ${childClaimRevenue.txHash}`)
+
+    // 5. Parent Claim Revenue
+    const parentClaimRevenue = await client.royalty.transferToVaultAndSnapshotAndClaimByTokenBatch({
         ancestorIpId: parentIp.ipId as Address,
         claimer: parentIp.ipId as Address,
         royaltyClaimDetails: [
@@ -75,7 +82,7 @@ const main = async function () {
         ],
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Claimed revenue: ${claimRevenue.amountsClaimed} at snapshotId ${claimRevenue.snapshotId}`)
+    console.log(`Claimed revenue: ${parentClaimRevenue.amountsClaimed} at snapshotId ${parentClaimRevenue.snapshotId}`)
 }
 
 main()
