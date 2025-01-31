@@ -1,6 +1,14 @@
 import { Address, toHex, zeroAddress } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { SUSDAddress, NFTContractAddress, RoyaltyPolicyLAP, account, createCommercialRemixTerms, client } from './utils/utils'
+import {
+    MockERC20Address,
+    NFTContractAddress,
+    RoyaltyPolicyLAP,
+    account,
+    createCommercialRemixTerms,
+    client,
+    defaultLicensingConfig,
+} from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial" example.
@@ -13,7 +21,12 @@ const main = async function () {
     const parentIp = await client.ipAsset.registerIpAndAttachPilTerms({
         nftContract: NFTContractAddress,
         tokenId: parentTokenId!,
-        terms: [createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 })],
+        licenseTermsData: [
+            {
+                terms: createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 }),
+                licensingConfig: defaultLicensingConfig,
+            },
+        ],
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -38,6 +51,9 @@ const main = async function () {
         derivData: {
             parentIpIds: [parentIp.ipId as Address],
             licenseTermsIds: parentIp.licenseTermsIds as bigint[],
+            maxMintingFee: 0,
+            maxRts: 100_000_000,
+            maxRevenueShare: 100,
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
@@ -58,31 +74,19 @@ const main = async function () {
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
-        token: SUSDAddress,
+        token: MockERC20Address,
         amount: 2,
         txOptions: { waitForTransaction: true },
     })
     console.log(`Paid royalty at transaction hash ${payRoyalty.txHash}`)
 
     // 4. Child Claim Revenue
-    const childClaimRevenue = await client.royalty.snapshotAndClaimByTokenBatch({
-        royaltyVaultIpId: childIp.ipId as Address,
-        currencyTokens: [SUSDAddress],
-        claimer: childIp.ipId as Address,
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Child claimed revenue: ${childClaimRevenue.txHash}`)
+    //
+    // NOT AVAILABLE YET
 
     // 5. Parent Claim Revenue
-    const parentClaimRevenue = await client.royalty.transferToVaultAndSnapshotAndClaimByTokenBatch({
-        ancestorIpId: parentIp.ipId as Address,
-        claimer: parentIp.ipId as Address,
-        royaltyClaimDetails: [
-            { childIpId: childIp.ipId as Address, royaltyPolicy: RoyaltyPolicyLAP, currencyToken: SUSDAddress, amount: 1 },
-        ],
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Parent claimed revenue: ${parentClaimRevenue.amountsClaimed} at snapshotId ${parentClaimRevenue.snapshotId}`)
+    //
+    // NOT AVAILABLE YET
 }
 
 main()

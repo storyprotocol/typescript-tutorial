@@ -1,5 +1,12 @@
 import { Address, toHex, zeroAddress } from 'viem'
-import { SUSDAddress, RoyaltyPolicyLAP, SPGNFTContractAddress, createCommercialRemixTerms, client } from './utils/utils'
+import {
+    MockERC20Address,
+    RoyaltyPolicyLAP,
+    SPGNFTContractAddress,
+    createCommercialRemixTerms,
+    client,
+    defaultLicensingConfig,
+} from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial SPG" example.
@@ -10,7 +17,13 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
     const parentIp = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         spgNftContract: SPGNFTContractAddress,
-        terms: [createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 })],
+        allowDuplicates: true,
+        licenseTermsData: [
+            {
+                terms: createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 }),
+                licensingConfig: defaultLicensingConfig,
+            },
+        ],
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
         ipMetadata: {
@@ -30,9 +43,13 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/register-a-derivative#/mint-nft-register-ip-and-link-to-existing-parent-ip
     const { txHash, childIpId } = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
         spgNftContract: SPGNFTContractAddress,
+        allowDuplicates: true,
         derivData: {
             parentIpIds: [parentIp.ipId as Address],
             licenseTermsIds: parentIp.licenseTermsIds as bigint[],
+            maxMintingFee: 0,
+            maxRts: 100_000_000,
+            maxRevenueShare: 100,
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
@@ -53,36 +70,19 @@ const main = async function () {
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIpId as Address,
         payerIpId: zeroAddress,
-        token: SUSDAddress,
+        token: MockERC20Address,
         amount: 2,
         txOptions: { waitForTransaction: true },
     })
     console.log(`Paid royalty at transaction hash ${payRoyalty.txHash}`)
 
     // 4. Child Claim Revenue
-    const childClaimRevenue = await client.royalty.snapshotAndClaimByTokenBatch({
-        royaltyVaultIpId: childIpId as Address,
-        currencyTokens: [SUSDAddress],
-        claimer: childIpId as Address,
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Child claimed revenue: ${childClaimRevenue.txHash}`)
+    //
+    // NOT AVAILABLE YET
 
     // 5. Parent Claim Revenue
-    const parentClaimRevenue = await client.royalty.transferToVaultAndSnapshotAndClaimByTokenBatch({
-        ancestorIpId: parentIp.ipId as Address,
-        claimer: parentIp.ipId as Address,
-        royaltyClaimDetails: [
-            {
-                childIpId: childIpId as Address,
-                royaltyPolicy: RoyaltyPolicyLAP,
-                currencyToken: SUSDAddress,
-                amount: 1,
-            },
-        ],
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Claimed revenue: ${parentClaimRevenue.amountsClaimed} at snapshotId ${parentClaimRevenue.snapshotId}`)
+    //
+    // NOT AVAILABLE YET
 }
 
 main()
