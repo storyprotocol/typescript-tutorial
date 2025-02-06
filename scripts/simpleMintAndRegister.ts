@@ -44,10 +44,9 @@ const main = async function () {
     // 5. Register an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/attach-terms-to-an-ip-asset#register-new-ip-asset-and-attach-license-terms
-    const response = await client.ipAsset.registerIpAndAttachPilTerms({
+    const response = await client.ipAsset.register({
         nftContract: NFTContractAddress,
         tokenId: tokenId!,
-        terms: [],
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,

@@ -10,10 +10,9 @@ const main = async function () {
     //
     // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
     const tokenId = await mintNFT(account.address, 'test-uri')
-    const ipResponse = await client.ipAsset.registerIpAndAttachPilTerms({
+    const ipResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
         tokenId: tokenId!,
-        terms: [],
         ipMetadata: {
             ipMetadataURI: 'test-uri',
             ipMetadataHash: toHex('test-metadata-hash', { size: 32 }),
@@ -30,10 +29,14 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/dispute-module
     const disputeResponse = await client.dispute.raiseDispute({
         targetIpId: ipResponse.ipId as Address,
-        // this is "PLAGIARISM" in base32, and is currently the only whitelisted
-        // tag for protocol v1.2
-        targetTag: '0x504c414749415249534d00000000000000000000000000000000000000000000',
+        // NOTE: you must use your own CID here, because every time it is used,
+        // the protocol does not allow you to use it again
         cid: 'QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR',
+        // you must pick from one of the whitelisted tags here: https://docs.story.foundation/docs/dispute-module#/dispute-tags
+        targetTag: 'IMPROPER_REGISTRATION',
+        bond: 0,
+        liveness: 2592000,
+        txOptions: { waitForTransaction: true },
     })
     console.log(`Dispute raised at transaction hash ${disputeResponse.txHash}, Dispute ID: ${disputeResponse.disputeId}`)
 }

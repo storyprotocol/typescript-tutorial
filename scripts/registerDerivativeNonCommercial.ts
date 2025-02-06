@@ -35,6 +35,9 @@ const main = async function () {
         derivData: {
             parentIpIds: [parentIp.ipId as Address],
             licenseTermsIds: [NonCommercialSocialRemixingTermsId],
+            maxMintingFee: 0,
+            maxRts: 100_000_000,
+            maxRevenueShare: 100,
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
