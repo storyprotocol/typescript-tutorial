@@ -15,7 +15,7 @@ export const account: Account = privateKeyToAccount(privateKey)
 const config: StoryConfig = {
     account: account,
     transport: http(RPCProviderUrl),
-    chainId: 'homer',
+    chainId: 'aeneid',
 }
 export const client = StoryClient.newClient(config)
 

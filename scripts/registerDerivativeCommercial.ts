@@ -82,11 +82,27 @@ const main = async function () {
 
     // 4. Child Claim Revenue
     //
-    // NOT AVAILABLE YET
+    // Docs: https://docs.story.foundation/docs/claim-revenue
+    const childClaimRevenue = await client.royalty.claimAllRevenue({
+        ancestorIpId: childIp.ipId as Address,
+        claimer: childIp.ipId as Address,
+        childIpIds: [],
+        royaltyPolicies: [],
+        currencyTokens: [MockERC20Address],
+    })
+    console.log(`Child claimed revenue: ${childClaimRevenue.claimedTokens}`)
 
     // 5. Parent Claim Revenue
     //
-    // NOT AVAILABLE YET
+    // Docs: https://docs.story.foundation/docs/claim-revenue
+    const parentClaimRevenue = await client.royalty.claimAllRevenue({
+        ancestorIpId: parentIp.ipId as Address,
+        claimer: parentIp.ipId as Address,
+        childIpIds: [childIp.ipId as Address],
+        royaltyPolicies: [RoyaltyPolicyLAP],
+        currencyTokens: [MockERC20Address],
+    })
+    console.log(`Parent claimed revenue: ${parentClaimRevenue.claimedTokens}`)
 }
 
 main()
