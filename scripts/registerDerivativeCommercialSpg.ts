@@ -1,6 +1,6 @@
 import { Address, toHex, zeroAddress } from 'viem'
 import {
-    MockERC20Address,
+    RevenueTokenAddress,
     RoyaltyPolicyLAP,
     SPGNFTContractAddress,
     createCommercialRemixTerms,
@@ -64,13 +64,13 @@ const main = async function () {
     console.log(`Derivative IPA created and linked at transaction hash ${childIp.txHash}, IPA ID: ${childIp.ipId}}`)
 
     // 3. Pay Royalty
-    // NOTE: You have to approve the RoyaltyModule to spend 2 SUSD on your behalf first. See README for instructions.
+    // NOTE: You have to approve the RoyaltyModule to spend 2 $IP on your behalf first. See README for instructions.
     //
     // Docs: https://docs.story.foundation/docs/pay-ipa
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
-        token: MockERC20Address,
+        token: RevenueTokenAddress,
         amount: 2,
         txOptions: { waitForTransaction: true },
     })
@@ -84,9 +84,10 @@ const main = async function () {
         claimer: childIp.ipId as Address,
         childIpIds: [],
         royaltyPolicies: [],
-        currencyTokens: [MockERC20Address],
+        currencyTokens: [RevenueTokenAddress],
     })
-    console.log(`Child claimed revenue: ${childClaimRevenue.claimedTokens}`)
+    console.log('Child claimed revenue:')
+    console.dir(childClaimRevenue.claimedTokens)
 
     // 5. Parent Claim Revenue
     //
@@ -96,9 +97,10 @@ const main = async function () {
         claimer: parentIp.ipId as Address,
         childIpIds: [childIp.ipId as Address],
         royaltyPolicies: [RoyaltyPolicyLAP],
-        currencyTokens: [MockERC20Address],
+        currencyTokens: [RevenueTokenAddress],
     })
-    console.log(`Parent claimed revenue: ${parentClaimRevenue.claimedTokens}`)
+    console.log('Parent claimed revenue:')
+    console.dir(parentClaimRevenue.claimedTokens)
 }
 
 main()

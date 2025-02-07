@@ -72,11 +72,9 @@
     WALLET_PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
     ```
 
-2. You will be paying for the License Token using a [test ERC-20 token](https://aeneid.storyscan.xyz/address/0xF2104833d386a2734a4eB3B8ad6FC6812F29E38E).
+2. You will be paying for the License Token using [$WIP](https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000). Make sure you have enough $WIP in your wallet before running the script.
 
-    2a. Mint some tokens by running [this](https://aeneid.storyscan.xyz/address/0xF2104833d386a2734a4eB3B8ad6FC6812F29E38E?tab=write_contract#0x40c10f19) transaction (10 is good).
-
-    2b. Next, you have to allow the `RoyaltyModule.sol` to spend those tokens on your behalf so it can properly distribute royalties to ancestor IPs. Run the [approve transaction](https://aeneid.storyscan.xyz/address/0xF2104833d386a2734a4eB3B8ad6FC6812F29E38E?tab=write_contract#0x095ea7b3) where the `spender` is `0xD2f60c40fEbccf6311f8B47c4f2Ec6b040400086` (this is the Aeneid v1.3 address of `RoyaltyModule.sol` found [here](https://docs.story.foundation/docs/deployed-smart-contracts)) and the value is >= 2 (that's the amount we're paying in the script).
+    **NOTE: If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into $WIP for you.**
 
 3. `npm run register-deriv-com`
 
@@ -88,11 +86,9 @@
     WALLET_PRIVATE_KEY=YOUR_WALLET_PRIVATE_KEY
     ```
 
-2. You will be paying for the License Token using a [test ERC-20 token](https://aeneid.storyscan.xyz/address/0xF2104833d386a2734a4eB3B8ad6FC6812F29E38E).
+2. You will be paying for the License Token using [$WIP](https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000). Make sure you have enough $WIP in your wallet before running the script.
 
-    2a. Mint some tokens by running [this](https://aeneid.storyscan.xyz/address/0xF2104833d386a2734a4eB3B8ad6FC6812F29E38E?tab=write_contract#0x40c10f19) transaction (10 is good).
-
-    2b. Next, you have to allow the `RoyaltyModule.sol` to spend those tokens on your behalf so it can properly distribute royalties to ancestor IPs. Run the [approve transaction](https://aeneid.storyscan.xyz/address/0xF2104833d386a2734a4eB3B8ad6FC6812F29E38E?tab=write_contract#0x095ea7b3) where the `spender` is `0xD2f60c40fEbccf6311f8B47c4f2Ec6b040400086` (this is the Aeneid v1.3 address of `RoyaltyModule.sol` found [here](https://docs.story.foundation/docs/deployed-smart-contracts)) and the value is >= 2 (that's the amount we're paying in the script).
+    **NOTE: If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into $WIP for you.**
 
 3. Create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
 

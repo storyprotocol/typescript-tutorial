@@ -29,7 +29,7 @@ export const SPGNFTContractAddress: Address = process.env.SPG_NFT_CONTRACT_ADDRE
 // The currency used for paying License Tokens or tipping
 // This address must be whitelisted by the protocol. You can see the
 // currently whitelisted addresses here: https://docs.story.foundation/docs/royalty-module#whitelisted-revenue-tokens
-export const MockERC20Address: Address = '0xF2104833d386a2734a4eB3B8ad6FC6812F29E38E'
+export const RevenueTokenAddress: Address = '0x1514000000000000000000000000000000000000'
 
 // Docs: https://docs.story.foundation/docs/deployed-smart-contracts
 export const RoyaltyPolicyLAP: Address = '0xBe54FB168b3c982b7AaE60dB6CF75Bd8447b390E'
@@ -51,7 +51,7 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
         derivativesApproval: false,
         derivativesReciprocal: true,
         derivativeRevCeiling: BigInt(0),
-        currency: MockERC20Address,
+        currency: RevenueTokenAddress,
         uri: '',
     }
 }
