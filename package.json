@@ -10,13 +10,14 @@
         "register-deriv-non-com": "npx ts-node ./scripts/registerDerivativeNonCommercial.ts",
         "register-deriv-com": "npx ts-node ./scripts/registerDerivativeCommercial.ts",
         "register-deriv-com-spg": "npx ts-node ./scripts/registerDerivativeCommercialSpg.ts",
+        "dispute-ip": "npx ts-node ./scripts/disputeIp.ts",
         "create-spg-collection": "npx ts-node ./scripts/utils/createSpgNftCollection.ts"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@pinata/sdk": "^2.1.0",
-        "@story-protocol/core-sdk": "1.2.0-rc.3",
+        "@story-protocol/core-sdk": "1.3.0-beta.2",
+        "pinata-web3": "^0.5.4",
         "ts-node": "^10.9.2",
         "viem": "^2.8.12"
     },

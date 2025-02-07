@@ -1,6 +1,5 @@
-import { IpMetadata, MintAndRegisterIpAssetWithPilTermsResponse, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { http } from 'viem'
-import { RPCProviderUrl, SPGNFTContractAddress, account } from './utils/utils'
+import { IpMetadata } from '@story-protocol/core-sdk'
+import { SPGNFTContractAddress, client } from './utils/utils'
 import { uploadJSONToIPFS } from './utils/uploadToIpfs'
 import { createHash } from 'crypto'
 
@@ -8,17 +7,7 @@ import { createHash } from 'crypto'
 // which contains instructions for running this "Simple Mint and Register SPG" example.
 
 const main = async function () {
-    // 1. Set up your Story Config
-    //
-    // Docs: https://docs.story.foundation/docs/typescript-sdk-setup
-    const config: StoryConfig = {
-        account: account,
-        transport: http(RPCProviderUrl),
-        chainId: 'odyssey',
-    }
-    const client = StoryClient.newClient(config)
-
-    // 2. Set up your IP Metadata
+    // 1. Set up your IP Metadata
     //
     // Docs: https://docs.story.foundation/docs/ipa-metadata-standard
     const ipMetadata: IpMetadata = client.ipAsset.generateIpMetadata({
@@ -32,7 +21,7 @@ const main = async function () {
         ],
     })
 
-    // 3. Set up your NFT Metadata
+    // 2. Set up your NFT Metadata
     //
     // Docs: https://eips.ethereum.org/EIPS/eip-721
     const nftMetadata = {
@@ -41,18 +30,18 @@ const main = async function () {
         image: 'https://i.imgur.com/gb59b2S.png',
     }
 
-    // 4. Upload your IP and NFT Metadata to IPFS
+    // 3. Upload your IP and NFT Metadata to IPFS
     const ipIpfsHash = await uploadJSONToIPFS(ipMetadata)
     const ipHash = createHash('sha256').update(JSON.stringify(ipMetadata)).digest('hex')
     const nftIpfsHash = await uploadJSONToIPFS(nftMetadata)
     const nftHash = createHash('sha256').update(JSON.stringify(nftMetadata)).digest('hex')
 
-    // 5. Register the NFT as an IP Asset
+    // 4. Register the NFT as an IP Asset
     //
     // Docs: https://docs.story.foundation/docs/attach-terms-to-an-ip-asset#mint-nft-register-as-ip-asset-and-attach-terms
-    const response: MintAndRegisterIpAssetWithPilTermsResponse = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
+    const response = await client.ipAsset.mintAndRegisterIp({
         spgNftContract: SPGNFTContractAddress,
-        terms: [],
+        allowDuplicates: true,
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,
