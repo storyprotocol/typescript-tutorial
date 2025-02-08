@@ -64,7 +64,6 @@ const main = async function () {
     console.log(`Derivative IPA created and linked at transaction hash ${childIp.txHash}, IPA ID: ${childIp.ipId}}`)
 
     // 3. Pay Royalty
-    // NOTE: You have to approve the RoyaltyModule to spend 2 $IP on your behalf first. See README for instructions.
     //
     // Docs: https://docs.story.foundation/docs/pay-ipa
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
