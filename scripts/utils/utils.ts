@@ -1,4 +1,4 @@
-import { LicenseTerms, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { LicenseTerms, StoryClient, StoryConfig, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 import { http, zeroAddress, zeroHash } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 import dotenv from 'dotenv'
@@ -26,11 +26,6 @@ export const NonCommercialSocialRemixingTermsId = '1'
 export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0x937bef10ba6fb941ed84b8d249abc76031429a9a'
 export const SPGNFTContractAddress: Address = process.env.SPG_NFT_CONTRACT_ADDRESS as Address
 
-// The currency used for paying License Tokens or tipping
-// This address must be whitelisted by the protocol. You can see the
-// currently whitelisted addresses here: https://docs.story.foundation/docs/royalty-module#whitelisted-revenue-tokens
-export const RevenueTokenAddress: Address = '0x1514000000000000000000000000000000000000'
-
 // Docs: https://docs.story.foundation/docs/deployed-smart-contracts
 export const RoyaltyPolicyLAP: Address = '0xBe54FB168b3c982b7AaE60dB6CF75Bd8447b390E'
 
@@ -51,7 +46,7 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
         derivativesApproval: false,
         derivativesReciprocal: true,
         derivativeRevCeiling: BigInt(0),
-        currency: RevenueTokenAddress,
+        currency: WIP_TOKEN_ADDRESS,
         uri: '',
     }
 }
