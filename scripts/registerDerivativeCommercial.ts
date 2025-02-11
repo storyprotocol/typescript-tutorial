@@ -9,7 +9,7 @@ import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 const main = async function () {
     // 1. Register an IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#registeripandattachpilterms
     const parentTokenId = await mintNFT(account.address, 'test-uri')
     const parentIp = await client.ipAsset.registerIpAndAttachPilTerms({
         nftContract: NFTContractAddress,
@@ -36,7 +36,7 @@ const main = async function () {
 
     // 2. Register another (child) IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#registerderivativeip
     const childTokenId = await mintNFT(account.address, 'test-uri')
     const childIp = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,
@@ -62,7 +62,7 @@ const main = async function () {
 
     // 3. Pay Royalty
     //
-    // Docs: https://docs.story.foundation/docs/pay-ipa
+    // Docs: https://docs.story.foundation/docs/sdk-royalty#payroyaltyonbehalf
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
@@ -74,7 +74,7 @@ const main = async function () {
 
     // 4. Child Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/claim-revenue
+    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
     const childClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: childIp.ipId as Address,
         claimer: childIp.ipId as Address,
@@ -87,7 +87,7 @@ const main = async function () {
 
     // 5. Parent Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/claim-revenue
+    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
     const parentClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: parentIp.ipId as Address,
         claimer: parentIp.ipId as Address,

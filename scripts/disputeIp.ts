@@ -8,7 +8,7 @@ import { NFTContractAddress, account, client } from './utils/utils'
 const main = async function () {
     // 1. Register an IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#register
     const tokenId = await mintNFT(account.address, 'test-uri')
     const ipResponse = await client.ipAsset.register({
         nftContract: NFTContractAddress,
@@ -26,7 +26,7 @@ const main = async function () {
 
     // 2. Raise a Dispute
     //
-    // Docs: https://docs.story.foundation/docs/dispute-module
+    // Docs: https://docs.story.foundation/docs/sdk-dispute#raisedispute
     const disputeResponse = await client.dispute.raiseDispute({
         targetIpId: ipResponse.ipId as Address,
         // NOTE: you must use your own CID here, because every time it is used,

@@ -8,7 +8,7 @@ import { NFTContractAddress, NonCommercialSocialRemixingTermsId, account, client
 const main = async function () {
     // 1. Register an IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#register
     const parentTokenId = await mintNFT(account.address, 'test-uri')
     const parentIp = await client.ipAsset.register({
         nftContract: NFTContractAddress,
@@ -27,7 +27,7 @@ const main = async function () {
 
     // 2. Register a Derivative IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/register-a-derivative#existing-nft-register-ip-and-link-to-existing-parent-ip
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#registerderivativeip
     const childTokenId = await mintNFT(account.address, 'test-uri')
     const childIp = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,

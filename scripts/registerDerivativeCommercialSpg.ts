@@ -8,7 +8,7 @@ import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 const main = async function () {
     // 1. Mint and Register an IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/register-an-nft-as-an-ip-asset
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisteripassetwithpilterms
     const parentIp = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         spgNftContract: SPGNFTContractAddress,
         allowDuplicates: true,
@@ -34,7 +34,7 @@ const main = async function () {
 
     // 2. Mint and Register IP asset and make it a derivative of the parent IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/register-a-derivative#/mint-nft-register-ip-and-link-to-existing-parent-ip
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisteripandmakederivative
     const childIp = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
         spgNftContract: SPGNFTContractAddress,
         allowDuplicates: true,
@@ -59,7 +59,7 @@ const main = async function () {
 
     // 3. Pay Royalty
     //
-    // Docs: https://docs.story.foundation/docs/pay-ipa
+    // Docs: https://docs.story.foundation/docs/sdk-royalty#payroyaltyonbehalf
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
@@ -71,7 +71,7 @@ const main = async function () {
 
     // 4. Child Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/claim-revenue
+    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
     const childClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: childIp.ipId as Address,
         claimer: childIp.ipId as Address,
@@ -84,7 +84,7 @@ const main = async function () {
 
     // 5. Parent Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/claim-revenue
+    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
     const parentClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: parentIp.ipId as Address,
         claimer: parentIp.ipId as Address,

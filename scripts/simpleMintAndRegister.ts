@@ -43,7 +43,7 @@ const main = async function () {
 
     // 5. Register an IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/attach-terms-to-an-ip-asset#register-new-ip-asset-and-attach-license-terms
+    // Docs: https://docs.story.foundation/docs/sdk-ipasset#register
     const response = await client.ipAsset.register({
         nftContract: NFTContractAddress,
         tokenId: tokenId!,
