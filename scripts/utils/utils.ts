@@ -6,7 +6,7 @@ import { LicensingConfig } from '@story-protocol/core-sdk/dist/declarations/src/
 dotenv.config()
 
 // Add your rpc provider url to your .env file
-// You can select from one of these: https://docs.story.foundation/docs/story-network#-rpcs
+// You can select from one of these: https://docs.story.foundation/docs/aeneid#-rpcs
 export const RPCProviderUrl = process.env.RPC_PROVIDER_URL || 'https://aeneid.storyrpc.io'
 
 // Add your private key to your .env file.
