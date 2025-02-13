@@ -22,7 +22,7 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
     console.log(`Root IPA created at transaction hash ${ipResponse.txHash}, IPA ID: ${ipResponse.ipId}`)
-    console.log(`View on the explorer: https://explorer.story.foundation/ipa/${ipResponse.ipId}`)
+    console.log(`View on the explorer: https://aeneid.explorer.story.foundation/ipa/${ipResponse.ipId}`)
 
     // 2. Raise a Dispute
     //
