@@ -1,4 +1,3 @@
-import { IpMetadata } from '@story-protocol/core-sdk'
 import { mintNFT } from './utils/mintNFT'
 import { NFTContractAddress, account, client } from './utils/utils'
 import { uploadJSONToIPFS } from './utils/uploadToIpfs'
@@ -11,36 +10,52 @@ const main = async function () {
     // 1. Set up your IP Metadata
     //
     // Docs: https://docs.story.foundation/docs/ipa-metadata-standard
-    const ipMetadata: IpMetadata = client.ipAsset.generateIpMetadata({
-        title: 'My IP Asset',
-        description: 'This is a test IP asset',
+    const ipMetadata = {
+        title: 'Midnight Marriage',
+        description: 'This is a house-style song generated on suno.',
+        createdAt: '1740005219',
         creators: [
             {
-                name: 'Story Foundation',
-                address: '0x67ee74EE04A0E6d14Ca6C27428B27F3EFd5CD084',
-                description: "The World's IP Blockchain",
+                name: 'Jacob Tucker',
+                address: '0xA2f9Cf1E40D7b03aB81e34BC50f0A8c67B4e9112',
                 contributionPercent: 100,
-                socialMedia: [
-                    {
-                        platform: 'Twitter',
-                        url: 'https://twitter.com/storyprotocol',
-                    },
-                    {
-                        platform: 'Website',
-                        url: 'https://story.foundation',
-                    },
-                ],
             },
         ],
-    })
+        image: 'https://cdn2.suno.ai/image_large_8bcba6bc-3f60-4921-b148-f32a59086a4c.jpeg',
+        imageHash: '0xc404730cdcdf7e5e54e8f16bc6687f97c6578a296f4a21b452d8a6ecabd61bcc',
+        mediaUrl: 'https://cdn1.suno.ai/dcd3076f-3aa5-400b-ba5d-87d30f27c311.mp3',
+        mediaHash: '0xb52a44f53b2485ba772bd4857a443e1fb942cf5dda73c870e2d2238ecd607aee',
+        mediaType: 'audio/mpeg',
+    }
 
     // 2. Set up your NFT Metadata
     //
-    // Docs: https://eips.ethereum.org/EIPS/eip-721
+    // Docs: https://docs.opensea.io/docs/metadata-standards#metadata-structure
     const nftMetadata = {
-        name: 'NFT representing ownership of IP Asset',
-        description: 'This NFT represents ownership of an IP Asset',
-        image: 'https://i.imgur.com/gb59b2S.png',
+        name: 'Midnight Marriage',
+        description: 'This is a house-style song generated on suno. This NFT represents ownership of the IP Asset.',
+        image: 'https://cdn2.suno.ai/image_large_8bcba6bc-3f60-4921-b148-f32a59086a4c.jpeg',
+        media: [
+            {
+                name: 'Midnight Marriage',
+                url: 'https://cdn1.suno.ai/dcd3076f-3aa5-400b-ba5d-87d30f27c311.mp3',
+                mimeType: 'audio/mpeg',
+            },
+        ],
+        attributes: [
+            {
+                key: 'Suno Artist',
+                value: 'amazedneurofunk956',
+            },
+            {
+                key: 'Artist ID',
+                value: '4123743b-8ba6-4028-a965-75b79a3ad424',
+            },
+            {
+                key: 'Source',
+                value: 'Suno.com',
+            },
+        ],
     }
 
     // 3. Upload your IP and NFT Metadata to IPFS
