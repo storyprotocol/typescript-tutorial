@@ -26,9 +26,9 @@ const main = async function () {
 
     // 2. Raise a Dispute
     //
-    // Docs: https://docs.story.foundation/docs/sdk-dispute#raisedispute
+    // Docs: https://docs.story.foundation/docs/sdk-dispute#raiseDispute
     const disputeResponse = await client.dispute.raiseDispute({
-        targetIpId: ipResponse.ipId as Address,
+        targetIpId: ipResponse.ipId,
         // NOTE: you must use your own CID here, because every time it is used,
         // the protocol does not allow you to use it again
         cid: 'QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR',
