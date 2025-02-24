@@ -42,7 +42,7 @@
     PINATA_JWT=<your_pinata_jwt>
     ```
 
-3. [OPTIONAL] We provide a public SPG NFT collection for you. If you want to create your own private collection for your IPs, create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
+3. [OPTIONAL] We have already configured a public SPG NFT collection for you (`0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc`). If you want to create your own collection for your IPs, create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
 
     3a. Look at the console output, and copy the NFT contract address. Add that value as `SPG_NFT_CONTRACT_ADDRESS` to your `.env` file:
 
@@ -90,7 +90,7 @@
 
     **NOTE: If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into $WIP for you.**
 
-3. [OPTIONAL] We provide a public SPG NFT collection for you. If you want to create your own private collection for your IPs, create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
+3. [OPTIONAL] We have already configured a public SPG NFT collection for you (`0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc`). If you want to create your own collection for your IPs, create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
 
     3a. Look at the console output, and copy the NFT contract address. Add that value as `SPG_NFT_CONTRACT_ADDRESS` to your `.env` file:
 
