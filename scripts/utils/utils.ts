@@ -24,7 +24,8 @@ export const NonCommercialSocialRemixingTermsId = '1'
 
 // A NFT contract address that will be used to represent your IP Assets
 export const NFTContractAddress: Address = (process.env.NFT_CONTRACT_ADDRESS as Address) || '0x937bef10ba6fb941ed84b8d249abc76031429a9a'
-export const SPGNFTContractAddress: Address = process.env.SPG_NFT_CONTRACT_ADDRESS as Address
+export const SPGNFTContractAddress: Address =
+    (process.env.SPG_NFT_CONTRACT_ADDRESS as Address) || '0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc'
 
 // Docs: https://docs.story.foundation/docs/deployed-smart-contracts
 export const RoyaltyPolicyLAP: Address = '0xBe54FB168b3c982b7AaE60dB6CF75Bd8447b390E'

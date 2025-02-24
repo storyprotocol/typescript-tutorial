@@ -13,7 +13,7 @@ const main = async function () {
     // you can use it in SPG functions.
     //
     const newCollection = await client.nftClient.createNFTCollection({
-        name: 'Test NFT',
+        name: 'Test NFTs',
         symbol: 'TEST',
         isPublicMinting: true,
         mintOpen: true,
