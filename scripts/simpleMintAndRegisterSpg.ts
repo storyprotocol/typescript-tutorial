@@ -1,6 +1,7 @@
 import { SPGNFTContractAddress, client } from './utils/utils'
 import { uploadJSONToIPFS } from './utils/uploadToIpfs'
 import { createHash } from 'crypto'
+import { IpMetadata } from '@story-protocol/core-sdk'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README
 // which contains instructions for running this "Simple Mint and Register SPG" example.
@@ -9,7 +10,7 @@ const main = async function () {
     // 1. Set up your IP Metadata
     //
     // Docs: https://docs.story.foundation/docs/ipa-metadata-standard
-    const ipMetadata = {
+    const ipMetadata: IpMetadata = client.ipAsset.generateIpMetadata({
         title: 'Midnight Marriage',
         description: 'This is a house-style song generated on suno.',
         createdAt: '1740005219',
@@ -25,7 +26,7 @@ const main = async function () {
         mediaUrl: 'https://cdn1.suno.ai/dcd3076f-3aa5-400b-ba5d-87d30f27c311.mp3',
         mediaHash: '0xb52a44f53b2485ba772bd4857a443e1fb942cf5dda73c870e2d2238ecd607aee',
         mediaType: 'audio/mpeg',
-    }
+    })
 
     // 2. Set up your NFT Metadata
     //
@@ -68,7 +69,6 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisterip
     const response = await client.ipAsset.mintAndRegisterIp({
         spgNftContract: SPGNFTContractAddress,
-        allowDuplicates: true,
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,

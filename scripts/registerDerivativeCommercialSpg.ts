@@ -1,5 +1,5 @@
 import { Address, toHex, zeroAddress } from 'viem'
-import { RoyaltyPolicyLAP, SPGNFTContractAddress, createCommercialRemixTerms, client, defaultLicensingConfig } from './utils/utils'
+import { RoyaltyPolicyLAP, SPGNFTContractAddress, createCommercialRemixTerms, client } from './utils/utils'
 import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
@@ -11,11 +11,9 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisteripassetwithpilterms
     const parentIp = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         spgNftContract: SPGNFTContractAddress,
-        allowDuplicates: true,
         licenseTermsData: [
             {
                 terms: createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 }),
-                licensingConfig: defaultLicensingConfig,
             },
         ],
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
@@ -37,13 +35,9 @@ const main = async function () {
     // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisteripandmakederivative
     const childIp = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
         spgNftContract: SPGNFTContractAddress,
-        allowDuplicates: true,
         derivData: {
             parentIpIds: [parentIp.ipId as Address],
             licenseTermsIds: parentIp.licenseTermsIds as bigint[],
-            maxMintingFee: 0,
-            maxRts: 100_000_000,
-            maxRevenueShare: 100,
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
