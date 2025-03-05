@@ -22,8 +22,10 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
 
-    console.log(`New SPG NFT collection created at transaction hash ${newCollection.txHash}`)
-    console.log(`NFT contract address: ${newCollection.spgNftContract}`)
+    console.log('New collection created:', {
+        'SPG NFT Contract Address': newCollection.spgNftContract,
+        'Transaction Hash': newCollection.txHash,
+    })
 }
 
 main()

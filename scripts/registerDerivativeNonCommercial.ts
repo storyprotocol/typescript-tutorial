@@ -23,7 +23,10 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Root IPA created at transaction hash ${parentIp.txHash}, IPA ID: ${parentIp.ipId}`)
+    console.log('Root IPA created:', {
+        'Transaction Hash': parentIp.txHash,
+        'IPA ID': parentIp.ipId,
+    })
 
     // 2. Register a Derivative IP Asset
     //
@@ -46,7 +49,10 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Derivative IPA created at transaction hash ${childIp.txHash}, IPA ID: ${childIp.ipId}`)
+    console.log('Derivative IPA created:', {
+        'Transaction Hash': childIp.txHash,
+        'IPA ID': childIp.ipId,
+    })
 }
 
 main()

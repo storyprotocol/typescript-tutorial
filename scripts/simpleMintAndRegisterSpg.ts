@@ -1,4 +1,4 @@
-import { SPGNFTContractAddress, client } from './utils/utils'
+import { SPGNFTContractAddress, client, networkInfo } from './utils/utils'
 import { uploadJSONToIPFS } from './utils/uploadToIpfs'
 import { createHash } from 'crypto'
 import { IpMetadata } from '@story-protocol/core-sdk'
@@ -77,8 +77,11 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log(`Root IPA created at transaction hash ${response.txHash}, IPA ID: ${response.ipId}`)
-    console.log(`View on the explorer: https://aeneid.explorer.story.foundation/ipa/${response.ipId}`)
+    console.log('Root IPA created:', {
+        'Transaction Hash': response.txHash,
+        'IPA ID': response.ipId,
+    })
+    console.log(`View on the explorer: ${networkInfo.protocolExplorer}/ipa/${response.ipId}`)
 }
 
 main()

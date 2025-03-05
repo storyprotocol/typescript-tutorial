@@ -1,6 +1,6 @@
 import { Address, toHex } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { NFTContractAddress, account, client } from './utils/utils'
+import { NFTContractAddress, account, client, networkInfo } from './utils/utils'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Dispute" example.
@@ -22,7 +22,7 @@ const main = async function () {
         txOptions: { waitForTransaction: true },
     })
     console.log(`Root IPA created at transaction hash ${ipResponse.txHash}, IPA ID: ${ipResponse.ipId}`)
-    console.log(`View on the explorer: https://aeneid.explorer.story.foundation/ipa/${ipResponse.ipId}`)
+    console.log(`View on the explorer: ${networkInfo.protocolExplorer}/ipa/${ipResponse.ipId}`)
 
     // 2. Raise a Dispute
     //

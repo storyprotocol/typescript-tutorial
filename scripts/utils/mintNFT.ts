@@ -1,11 +1,11 @@
 import { http, createWalletClient, createPublicClient, Address, WalletClient } from 'viem'
-import { NFTContractAddress, RPCProviderUrl, account } from './utils'
+import { NFTContractAddress, account, networkInfo } from './utils'
 import { aeneid } from '@story-protocol/core-sdk'
 import { defaultNftContractAbi } from './defaultNftContractAbi'
 
 const baseConfig = {
     chain: aeneid,
-    transport: http(RPCProviderUrl),
+    transport: http(networkInfo.rpcProviderUrl),
 } as const
 export const publicClient = createPublicClient(baseConfig)
 export const walletClient = createWalletClient({
