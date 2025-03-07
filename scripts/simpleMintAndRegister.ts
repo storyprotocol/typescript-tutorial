@@ -36,13 +36,7 @@ const main = async function () {
         name: 'Midnight Marriage',
         description: 'This is a house-style song generated on suno. This NFT represents ownership of the IP Asset.',
         image: 'https://cdn2.suno.ai/image_large_8bcba6bc-3f60-4921-b148-f32a59086a4c.jpeg',
-        media: [
-            {
-                name: 'Midnight Marriage',
-                url: 'https://cdn1.suno.ai/dcd3076f-3aa5-400b-ba5d-87d30f27c311.mp3',
-                mimeType: 'audio/mpeg',
-            },
-        ],
+        animation_url: 'https://cdn1.suno.ai/dcd3076f-3aa5-400b-ba5d-87d30f27c311.mp3',
         attributes: [
             {
                 key: 'Suno Artist',
