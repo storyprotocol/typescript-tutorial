@@ -1,4 +1,4 @@
-import { Address, toHex, zeroAddress } from 'viem'
+import { Address, toHex, zeroAddress, parseEther } from 'viem'
 import { mintNFT } from './utils/mintNFT'
 import { NFTContractAddress, RoyaltyPolicyLAP, RoyaltyPolicyLRP, account, client } from './utils/utils'
 import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
@@ -45,7 +45,7 @@ const main = async function () {
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
         token: WIP_TOKEN_ADDRESS,
-        amount: 2000000000000000000n, // 2 $WIP
+        amount: parseEther('2'), // 2 $WIP
         txOptions: { waitForTransaction: true },
     })
     console.log('Paid royalty:', {
