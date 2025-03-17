@@ -1,15 +1,15 @@
 import { Address, toHex, zeroAddress } from 'viem'
 import { mintNFT } from './utils/mintNFT'
-import { NFTContractAddress, RoyaltyPolicyLAP, account, client } from './utils/utils'
+import { NFTContractAddress, RoyaltyPolicyLAP, RoyaltyPolicyLRP, account, client } from './utils/utils'
 import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial" example.
 
-// TODO: This is a song on Aeneid that has a minting fee of 1 $WIP
-// and commercial rev share of 50%. You can change the below.
-const PARENT_IP_ID: Address = '0x60644643EcDb45c8904206296789CD6C393e035D'
-const PARENT_LICENSE_TERMS_ID: string = '927'
+// TODO: This is Ippy on Aeneid. The license terms specify 1 $WIP mint fee
+// and a 5% commercial rev share. You can change these.
+const PARENT_IP_ID: Address = '0x641E638e8FCA4d4844F509630B34c9D524d40BE5'
+const PARENT_LICENSE_TERMS_ID: string = '96'
 
 const main = async function () {
     // 1. Register another (child) IP Asset
@@ -45,7 +45,7 @@ const main = async function () {
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
         token: WIP_TOKEN_ADDRESS,
-        amount: 2,
+        amount: 2000000000000000000n, // 2 $WIP
         txOptions: { waitForTransaction: true },
     })
     console.log('Paid royalty:', {
@@ -71,7 +71,7 @@ const main = async function () {
         ancestorIpId: PARENT_IP_ID,
         claimer: PARENT_IP_ID,
         childIpIds: [childIp.ipId as Address],
-        royaltyPolicies: [RoyaltyPolicyLAP],
+        royaltyPolicies: [RoyaltyPolicyLRP],
         currencyTokens: [WIP_TOKEN_ADDRESS],
     })
     console.log('Parent claimed revenue:', parentClaimRevenue)

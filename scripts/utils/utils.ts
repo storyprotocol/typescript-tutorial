@@ -80,6 +80,7 @@ export const NonCommercialSocialRemixingTermsId = '1'
 
 // Docs: https://docs.story.foundation/docs/deployed-smart-contracts
 export const RoyaltyPolicyLAP: Address = '0xBe54FB168b3c982b7AaE60dB6CF75Bd8447b390E'
+export const RoyaltyPolicyLRP: Address = '0x9156e603C949481883B1d3355c6f1132D191fC41'
 
 export function createCommercialRemixTerms(terms: { commercialRevShare: number; defaultMintingFee: number }): LicenseTerms {
     return {
