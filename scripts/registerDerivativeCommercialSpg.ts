@@ -1,45 +1,24 @@
 import { Address, toHex, zeroAddress } from 'viem'
-import { RoyaltyPolicyLAP, SPGNFTContractAddress, createCommercialRemixTerms, client } from './utils/utils'
+import { RoyaltyPolicyLAP, SPGNFTContractAddress, client } from './utils/utils'
 import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Register Derivative Commercial SPG" example.
 
-const main = async function () {
-    // 1. Mint and Register an IP Asset
-    //
-    // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisteripassetwithpilterms
-    const parentIp = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
-        spgNftContract: SPGNFTContractAddress,
-        licenseTermsData: [
-            {
-                terms: createCommercialRemixTerms({ commercialRevShare: 50, defaultMintingFee: 0 }),
-            },
-        ],
-        // NOTE: The below metadata is not configured properly. It is just to make things simple.
-        // See `simpleMintAndRegister.ts` for a proper example.
-        ipMetadata: {
-            ipMetadataURI: 'test-uri',
-            ipMetadataHash: toHex('test-metadata-hash', { size: 32 }),
-            nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
-            nftMetadataURI: 'test-nft-uri',
-        },
-        txOptions: { waitForTransaction: true },
-    })
-    console.log('Root IPA created:', {
-        'Transaction Hash': parentIp.txHash,
-        'IPA ID': parentIp.ipId,
-        'License Terms ID': parentIp.licenseTermsIds,
-    })
+// TODO: This is a song on Aeneid that has a minting fee of 1 $WIP
+// and commercial rev share of 50%. You can change the below.
+const PARENT_IP_ID: Address = '0x60644643EcDb45c8904206296789CD6C393e035D'
+const PARENT_LICENSE_TERMS_ID: string = '927'
 
-    // 2. Mint and Register IP asset and make it a derivative of the parent IP Asset
+const main = async function () {
+    // 1. Mint and Register IP asset and make it a derivative of the parent IP Asset
     //
     // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisteripandmakederivative
     const childIp = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
         spgNftContract: SPGNFTContractAddress,
         derivData: {
-            parentIpIds: [parentIp.ipId as Address],
-            licenseTermsIds: parentIp.licenseTermsIds as bigint[],
+            parentIpIds: [PARENT_IP_ID],
+            licenseTermsIds: [PARENT_LICENSE_TERMS_ID],
         },
         // NOTE: The below metadata is not configured properly. It is just to make things simple.
         // See `simpleMintAndRegister.ts` for a proper example.
@@ -56,7 +35,7 @@ const main = async function () {
         'IPA ID': childIp.ipId,
     })
 
-    // 3. Pay Royalty
+    // 2. Pay Royalty
     //
     // Docs: https://docs.story.foundation/docs/sdk-royalty#payroyaltyonbehalf
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
@@ -70,7 +49,7 @@ const main = async function () {
         'Transaction Hash': payRoyalty.txHash,
     })
 
-    // 4. Child Claim Revenue
+    // 3. Child Claim Revenue
     //
     // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
     const childClaimRevenue = await client.royalty.claimAllRevenue({
@@ -82,12 +61,12 @@ const main = async function () {
     })
     console.log('Child claimed revenue:', childClaimRevenue.claimedTokens)
 
-    // 5. Parent Claim Revenue
+    // 4. Parent Claim Revenue
     //
     // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
     const parentClaimRevenue = await client.royalty.claimAllRevenue({
-        ancestorIpId: parentIp.ipId as Address,
-        claimer: parentIp.ipId as Address,
+        ancestorIpId: PARENT_IP_ID,
+        claimer: PARENT_IP_ID,
         childIpIds: [childIp.ipId as Address],
         royaltyPolicies: [RoyaltyPolicyLAP],
         currencyTokens: [WIP_TOKEN_ADDRESS],

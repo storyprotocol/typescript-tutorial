@@ -72,9 +72,11 @@
     WALLET_PRIVATE_KEY=<your_wallet_private_key>
     ```
 
-2. You will be paying for the License Token using [$WIP](https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000). Make sure you have enough $WIP in your wallet before running the script.
+2. The provided example has you registering a derivative of [this test song](https://aeneid.explorer.story.foundation/ipa/0x60644643EcDb45c8904206296789CD6C393e035D). It has a mint fee of 1 $WIP and also mandates a 50% commercial rev share.
 
-    **NOTE: If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into $WIP for you.**
+    **NOTE #1: You will be paying for the License Token using [$WIP](https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000).**
+
+    **NOTE #2: If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into $WIP for you.**
 
 3. `npm run register-deriv-com`
 
@@ -86,9 +88,11 @@
     WALLET_PRIVATE_KEY=<your_wallet_private_key>
     ```
 
-2. You will be paying for the License Token using [$WIP](https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000). Make sure you have enough $WIP in your wallet before running the script.
+2. The provided example has you registering a derivative of [this test song](https://aeneid.explorer.story.foundation/ipa/0x60644643EcDb45c8904206296789CD6C393e035D). It has a mint fee of 1 $WIP and also mandates a 50% commercial rev share.
 
-    **NOTE: If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into $WIP for you.**
+    **NOTE #1: You will be paying for the License Token using [$WIP](https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000).**
+
+    **NOTE #2: If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into $WIP for you.**
 
 3. [OPTIONAL] We have already configured a public SPG NFT collection for you (`0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc`). If you want to create your own collection for your IPs, create a new SPG NFT collection by running `npm run create-spg-collection` in your terminal.
 
