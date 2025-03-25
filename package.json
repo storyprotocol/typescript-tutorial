@@ -16,8 +16,9 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@story-protocol/core-sdk": "1.3.0-rc.2",
+        "@story-protocol/core-sdk": "1.3.0-rc.3",
         "dotenv": "^16.4.7",
+        "multiformats": "^9.9.0",
         "pinata-web3": "^0.5.4",
         "ts-node": "^10.9.2",
         "viem": "^2.8.12"

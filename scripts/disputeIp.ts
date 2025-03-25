@@ -1,44 +1,46 @@
-import { Address, toHex } from 'viem'
-import { mintNFT } from './utils/mintNFT'
-import { NFTContractAddress, account, client, networkInfo } from './utils/utils'
+import { Address, parseEther } from 'viem'
+import { client } from './utils/utils'
+import * as sha256 from 'multiformats/hashes/sha2'
+import { CID } from 'multiformats/cid'
 
 // BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
 // instructions for running this "Dispute" example.
 
-const main = async function () {
-    // 1. Register an IP Asset
-    //
-    // Docs: https://docs.story.foundation/docs/sdk-ipasset#register
-    const tokenId = await mintNFT(account.address, 'test-uri')
-    const ipResponse = await client.ipAsset.register({
-        nftContract: NFTContractAddress,
-        tokenId: tokenId!,
-        ipMetadata: {
-            ipMetadataURI: 'test-uri',
-            ipMetadataHash: toHex('test-metadata-hash', { size: 32 }),
-            nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
-            nftMetadataURI: 'test-nft-uri',
-        },
-        txOptions: { waitForTransaction: true },
-    })
-    console.log(`Root IPA created at transaction hash ${ipResponse.txHash}, IPA ID: ${ipResponse.ipId}`)
-    console.log(`View on the explorer: ${networkInfo.protocolExplorer}/ipa/${ipResponse.ipId}`)
+// TODO: Replace with your own IP ID
+const IP_ID: Address = '0x876B03d1e756C5C24D4b9A1080387098Fcc380f5'
 
-    // 2. Raise a Dispute
+const main = async function () {
+    // NOTE: Every time `raiseDispute` is called, it needs to be called with
+    // a unique CID. The CID representes dispute evidence.
+    // For testing purposes, we use a `generateCID` function.
+    const randomCid = await generateCID()
+
+    // 1. Raise a Dispute
     //
-    // Docs: https://docs.story.foundation/docs/sdk-dispute#raisedispute
+    // Docs: https://docs.story.foundation/sdk-reference/dispute#raisedispute
     const disputeResponse = await client.dispute.raiseDispute({
-        targetIpId: ipResponse.ipId as Address,
-        // NOTE: you must use your own CID here, because every time it is used,
-        // the protocol does not allow you to use it again
-        cid: 'QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR',
-        // you must pick from one of the whitelisted tags here: https://docs.story.foundation/docs/dispute-module#/dispute-tags
+        targetIpId: IP_ID,
+        cid: randomCid,
+        // you must pick from one of the whitelisted tags here:
+        // https://docs.story.foundation/concepts/dispute-module/overview#dispute-tags
         targetTag: 'IMPROPER_REGISTRATION',
-        bond: 0,
+        bond: parseEther('0.1'),
         liveness: 2592000,
         txOptions: { waitForTransaction: true },
     })
     console.log(`Dispute raised at transaction hash ${disputeResponse.txHash}, Dispute ID: ${disputeResponse.disputeId}`)
+}
+
+// example function just for demo purposes
+const generateCID = async () => {
+    // Generate a random 32-byte buffer
+    const randomBytes = crypto.getRandomValues(new Uint8Array(32))
+    // Hash the bytes using SHA-256
+    const hash = await sha256.sha256.digest(randomBytes)
+    // Create a CIDv1 in dag-pb format
+    const cidv1 = CID.createV1(0x70, hash) // 0x70 = dag-pb codec
+    // Convert CIDv1 to CIDv0 (Base58-encoded)
+    return cidv1.toV0().toString()
 }
 
 main()

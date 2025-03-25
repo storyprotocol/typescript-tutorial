@@ -114,6 +114,4 @@
     WALLET_PRIVATE_KEY=<your_wallet_private_key>
     ```
 
-2. You must get your own unique CID to be used as dispute evidence (the `cid` parameter in the script). This is because the protocol does not allow you to use the same CID twice for dispute.
-
-3. `npm run dispute-ip`
+2. `npm run dispute-ip`
