@@ -11,7 +11,7 @@ const PARENT_IP_ID: Address = '0x641E638e8FCA4d4844F509630B34c9D524d40BE5'
 const main = async function () {
     // Register a Derivative IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/sdk-ipasset#registerderivativeip
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#registerderivativeip
     const childTokenId = await mintNFT(account.address, 'test-uri')
     const childIp = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,

@@ -75,10 +75,10 @@ export const NFTContractAddress: Address =
 export const SPGNFTContractAddress: Address =
     (process.env.SPG_NFT_CONTRACT_ADDRESS as Address) || networkConfigs[network].defaultSPGNFTContractAddress || zeroAddress
 
-// This is a pre-configured PIL Flavor: https://docs.story.foundation/docs/pil-flavors
+// This is a pre-configured PIL Flavor: https://docs.story.foundation/concepts/programmable-ip-license/pil-flavors
 export const NonCommercialSocialRemixingTermsId = '1'
 
-// Docs: https://docs.story.foundation/docs/deployed-smart-contracts
+// Docs: https://docs.story.foundation/developers/deployed-smart-contracts
 export const RoyaltyPolicyLAP: Address = '0xBe54FB168b3c982b7AaE60dB6CF75Bd8447b390E'
 export const RoyaltyPolicyLRP: Address = '0x9156e603C949481883B1d3355c6f1132D191fC41'
 

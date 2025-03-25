@@ -9,7 +9,7 @@ import { IpMetadata } from '@story-protocol/core-sdk'
 const main = async function () {
     // 1. Set up your IP Metadata
     //
-    // Docs: https://docs.story.foundation/docs/ipa-metadata-standard
+    // Docs: https://docs.story.foundation/concepts/ip-asset/ipa-metadata-standard
     const ipMetadata: IpMetadata = client.ipAsset.generateIpMetadata({
         title: 'Midnight Marriage',
         description: 'This is a house-style song generated on suno.',
@@ -60,7 +60,7 @@ const main = async function () {
 
     // 4. Register the NFT as an IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisterip
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#mintandregisterip
     const response = await client.ipAsset.mintAndRegisterIp({
         spgNftContract: SPGNFTContractAddress,
         ipMetadata: {

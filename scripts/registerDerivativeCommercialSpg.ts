@@ -13,7 +13,7 @@ const PARENT_LICENSE_TERMS_ID: string = '96'
 const main = async function () {
     // 1. Mint and Register IP asset and make it a derivative of the parent IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/sdk-ipasset#mintandregisteripandmakederivative
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#mintandregisteripandmakederivative
     const childIp = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
         spgNftContract: SPGNFTContractAddress,
         derivData: {
@@ -37,7 +37,7 @@ const main = async function () {
 
     // 2. Pay Royalty
     //
-    // Docs: https://docs.story.foundation/docs/sdk-royalty#payroyaltyonbehalf
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#payroyaltyonbehalf
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
@@ -51,7 +51,7 @@ const main = async function () {
 
     // 3. Child Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
     const childClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: childIp.ipId as Address,
         claimer: childIp.ipId as Address,
@@ -63,7 +63,7 @@ const main = async function () {
 
     // 4. Parent Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
     const parentClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: PARENT_IP_ID,
         claimer: PARENT_IP_ID,

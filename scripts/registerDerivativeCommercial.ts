@@ -14,7 +14,7 @@ const PARENT_LICENSE_TERMS_ID: string = '96'
 const main = async function () {
     // 1. Register another (child) IP Asset
     //
-    // Docs: https://docs.story.foundation/docs/sdk-ipasset#registerderivativeip
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#registerderivativeip
     const childTokenId = await mintNFT(account.address, 'test-uri')
     const childIp = await client.ipAsset.registerDerivativeIp({
         nftContract: NFTContractAddress,
@@ -40,7 +40,7 @@ const main = async function () {
 
     // 2. Pay Royalty
     //
-    // Docs: https://docs.story.foundation/docs/sdk-royalty#payroyaltyonbehalf
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#payroyaltyonbehalf
     const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
         receiverIpId: childIp.ipId as Address,
         payerIpId: zeroAddress,
@@ -54,7 +54,7 @@ const main = async function () {
 
     // 3. Child Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
     const childClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: childIp.ipId as Address,
         claimer: childIp.ipId as Address,
@@ -66,7 +66,7 @@ const main = async function () {
 
     // 4. Parent Claim Revenue
     //
-    // Docs: https://docs.story.foundation/docs/sdk-royalty#claimallrevenue
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
     const parentClaimRevenue = await client.royalty.claimAllRevenue({
         ancestorIpId: PARENT_IP_ID,
         claimer: PARENT_IP_ID,
