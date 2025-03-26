@@ -11,7 +11,9 @@
         "register-deriv-com": "npx ts-node ./scripts/registerDerivativeCommercial.ts",
         "register-deriv-com-spg": "npx ts-node ./scripts/registerDerivativeCommercialSpg.ts",
         "dispute-ip": "npx ts-node ./scripts/disputeIp.ts",
-        "create-spg-collection": "npx ts-node ./scripts/utils/createSpgNftCollection.ts"
+        "create-spg-collection": "npx ts-node ./scripts/utils/createSpgNftCollection.ts",
+        "mint-license": "npx ts-node ./scripts/mintLicense.ts",
+        "license-limit": "npx ts-node ./scripts/oneTimeUseLicense.ts"
     },
     "author": "",
     "license": "ISC",
