@@ -1,5 +1,5 @@
-import { LicenseTerms, StoryClient, StoryConfig, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
-import { http, zeroAddress } from 'viem'
+import { aeneid, LicenseTerms, StoryClient, StoryConfig, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
+import { createPublicClient, createWalletClient, http, WalletClient, zeroAddress } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 import dotenv from 'dotenv'
 
@@ -103,3 +103,13 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
         uri: '',
     }
 }
+
+const baseConfig = {
+    chain: aeneid,
+    transport: http(networkInfo.rpcProviderUrl),
+} as const
+export const publicClient = createPublicClient(baseConfig)
+export const walletClient = createWalletClient({
+    ...baseConfig,
+    account,
+}) as WalletClient

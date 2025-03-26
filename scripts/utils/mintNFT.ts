@@ -1,17 +1,6 @@
-import { http, createWalletClient, createPublicClient, Address, WalletClient } from 'viem'
-import { NFTContractAddress, account, networkInfo } from './utils'
-import { aeneid } from '@story-protocol/core-sdk'
+import { Address } from 'viem'
+import { NFTContractAddress, account, publicClient, walletClient } from './utils'
 import { defaultNftContractAbi } from './defaultNftContractAbi'
-
-const baseConfig = {
-    chain: aeneid,
-    transport: http(networkInfo.rpcProviderUrl),
-} as const
-export const publicClient = createPublicClient(baseConfig)
-export const walletClient = createWalletClient({
-    ...baseConfig,
-    account,
-}) as WalletClient
 
 export async function mintNFT(to: Address, uri: string): Promise<number | undefined> {
     console.log('Minting a new NFT...')
