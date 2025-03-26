@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "register": "npx ts-node ./scripts/registration/simpleMintAndRegister.ts",
-        "register-custom": "npx ts-node ./scripts/registration/simpleMintAndRegisterCustom.ts",
+        "register": "npx ts-node ./scripts/registration/register.ts",
+        "register-custom": "npx ts-node ./scripts/registration/registerCustom.ts",
         "derivative-commercial": "npx ts-node ./scripts/derivative/registerDerivativeCommercial.ts",
         "derivative-non-commercial": "npx ts-node ./scripts/derivative/registerDerivativeNonCommercial.ts",
         "derivative-commercial-custom": "npx ts-node ./scripts/derivative/registerDerivativeCommercialCustom.ts",
