@@ -1,6 +1,6 @@
 import { Address } from 'viem'
 import { NFTContractAddress, account, publicClient, walletClient } from './utils'
-import { defaultNftContractAbi } from './defaultNftContractAbi'
+import { defaultNftContractAbi } from './abi/defaultNftContractAbi'
 
 export async function mintNFT(to: Address, uri: string): Promise<number | undefined> {
     console.log('Minting a new NFT...')
