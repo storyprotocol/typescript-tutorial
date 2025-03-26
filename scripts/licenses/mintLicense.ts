@@ -1,7 +1,7 @@
 import { Address } from 'viem'
-import { client } from './utils/utils'
+import { client } from '../../utils/config'
 
-// TODO: Replace with your own IP ID
+// TODO: Replace with your own IP ID and license terms id
 const IP_ID: Address = '0x1aAE062C498d0c3276d845fff2F81F30B78999F0'
 const LICENSE_TERMS_ID: string = '95'
 

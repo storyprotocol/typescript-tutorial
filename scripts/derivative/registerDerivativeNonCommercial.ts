@@ -1,21 +1,16 @@
 import { Address, toHex } from 'viem'
-import { mintNFT } from './utils/mintNFT'
-import { NFTContractAddress, NonCommercialSocialRemixingTermsId, account, client } from './utils/utils'
+import { SPGNFTContractAddress, NonCommercialSocialRemixingTermsId } from '../../utils/utils'
+import { client } from '../../utils/config'
 
-// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains instructions
-// for running this "Register Derivative Non-Commercial" example.
-
-// TODO: This is Ippy on Aeneid. You can change these.
+// TODO: You can change this
 const PARENT_IP_ID: Address = '0x641E638e8FCA4d4844F509630B34c9D524d40BE5'
 
 const main = async function () {
-    // Register a Derivative IP Asset
+    // 1. Mint and Register IP asset and make it a derivative of the parent IP Asset
     //
-    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#registerderivativeip
-    const childTokenId = await mintNFT(account.address, 'test-uri')
-    const childIp = await client.ipAsset.registerDerivativeIp({
-        nftContract: NFTContractAddress,
-        tokenId: childTokenId!,
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#mintandregisteripandmakederivative
+    const childIp = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
+        spgNftContract: SPGNFTContractAddress,
         derivData: {
             parentIpIds: [PARENT_IP_ID],
             licenseTermsIds: [NonCommercialSocialRemixingTermsId],
@@ -30,7 +25,7 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log('Derivative IPA created:', {
+    console.log('Derivative IPA created and linked:', {
         'Transaction Hash': childIp.txHash,
         'IPA ID': childIp.ipId,
     })

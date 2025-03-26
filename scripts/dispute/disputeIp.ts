@@ -1,10 +1,7 @@
 import { Address, parseEther } from 'viem'
-import { client } from './utils/utils'
+import { client } from '../../utils/config'
 import * as sha256 from 'multiformats/hashes/sha2'
 import { CID } from 'multiformats/cid'
-
-// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README which contains
-// instructions for running this "Dispute" example.
 
 // TODO: Replace with your own IP ID
 const IP_ID: Address = '0x876B03d1e756C5C24D4b9A1080387098Fcc380f5'

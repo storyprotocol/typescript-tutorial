@@ -1,5 +1,5 @@
-import { aeneid, LicenseTerms, StoryClient, StoryConfig, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
-import { createPublicClient, createWalletClient, http, WalletClient, zeroAddress } from 'viem'
+import { aeneid, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { createPublicClient, createWalletClient, http, WalletClient } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 import dotenv from 'dotenv'
 
@@ -67,42 +67,6 @@ export const client = StoryClient.newClient(config)
 
 // Export additional useful constants
 export const PROTOCOL_EXPLORER = networkInfo.protocolExplorer
-
-// Export contract addresses with appropriate defaults based on network
-export const NFTContractAddress: Address =
-    (process.env.NFT_CONTRACT_ADDRESS as Address) || networkConfigs[network].defaultNFTContractAddress || zeroAddress
-
-export const SPGNFTContractAddress: Address =
-    (process.env.SPG_NFT_CONTRACT_ADDRESS as Address) || networkConfigs[network].defaultSPGNFTContractAddress || zeroAddress
-
-// This is a pre-configured PIL Flavor: https://docs.story.foundation/concepts/programmable-ip-license/pil-flavors
-export const NonCommercialSocialRemixingTermsId = '1'
-
-// Docs: https://docs.story.foundation/developers/deployed-smart-contracts
-export const RoyaltyPolicyLAP: Address = '0xBe54FB168b3c982b7AaE60dB6CF75Bd8447b390E'
-export const RoyaltyPolicyLRP: Address = '0x9156e603C949481883B1d3355c6f1132D191fC41'
-
-export function createCommercialRemixTerms(terms: { commercialRevShare: number; defaultMintingFee: number }): LicenseTerms {
-    return {
-        transferable: true,
-        royaltyPolicy: RoyaltyPolicyLAP,
-        defaultMintingFee: BigInt(terms.defaultMintingFee),
-        expiration: BigInt(0),
-        commercialUse: true,
-        commercialAttribution: true,
-        commercializerChecker: zeroAddress,
-        commercializerCheckerData: zeroAddress,
-        commercialRevShare: terms.commercialRevShare,
-        commercialRevCeiling: BigInt(0),
-        derivativesAllowed: true,
-        derivativesAttribution: true,
-        derivativesApproval: false,
-        derivativesReciprocal: true,
-        derivativeRevCeiling: BigInt(0),
-        currency: WIP_TOKEN_ADDRESS,
-        uri: '',
-    }
-}
 
 const baseConfig = {
     chain: aeneid,

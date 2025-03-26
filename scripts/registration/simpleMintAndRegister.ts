@@ -1,10 +1,8 @@
-import { SPGNFTContractAddress, client, networkInfo } from './utils/utils'
-import { uploadJSONToIPFS } from './utils/uploadToIpfs'
+import { SPGNFTContractAddress } from '../../utils/utils'
+import { client, networkInfo } from '../../utils/config'
+import { uploadJSONToIPFS } from '../../utils/functions/uploadToIpfs'
 import { createHash } from 'crypto'
 import { IpMetadata } from '@story-protocol/core-sdk'
-
-// BEFORE YOU RUN THIS FUNCTION: Make sure to read the README
-// which contains instructions for running this "Simple Mint and Register SPG" example.
 
 const main = async function () {
     // 1. Set up your IP Metadata

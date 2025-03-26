@@ -1,8 +1,9 @@
-import { SPGNFTContractAddress, client, account, publicClient, walletClient, createCommercialRemixTerms } from './utils/utils'
+import { SPGNFTContractAddress, createCommercialRemixTerms } from '../../utils/utils'
+import { client, account, publicClient, walletClient } from '../../utils/config'
 import { toHex } from 'viem'
 import { LicensingConfig } from '@story-protocol/core-sdk'
 import { zeroAddress } from 'viem'
-import { totalLicenseTokenLimitHook } from './utils/abi/totalLicenseTokenLimitHook'
+import { totalLicenseTokenLimitHook } from '../../utils/abi/totalLicenseTokenLimitHook'
 
 const main = async function () {
     // 1. Set up Licensing Config
