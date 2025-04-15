@@ -1,5 +1,5 @@
 import { LicenseTerms, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
-import { Address, zeroAddress } from 'viem'
+import { Address, parseEther, zeroAddress } from 'viem'
 import dotenv from 'dotenv'
 import { networkInfo } from './config'
 
@@ -45,7 +45,7 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
     return {
         transferable: true,
         royaltyPolicy: RoyaltyPolicyLAP,
-        defaultMintingFee: BigInt(terms.defaultMintingFee),
+        defaultMintingFee: parseEther(terms.defaultMintingFee.toString()),
         expiration: BigInt(0),
         commercialUse: true,
         commercialAttribution: true,
