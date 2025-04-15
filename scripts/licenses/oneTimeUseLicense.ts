@@ -14,7 +14,7 @@ const main = async function () {
         mintingFee: 0n,
         // address of TotalLicenseTokenLimitHook
         // from https://docs.story.foundation/developers/deployed-smart-contracts
-        licensingHook: '0xba8E30d9EB784Badc2aF610F56d99d212BC2A90c',
+        licensingHook: '0xaBAD364Bfa41230272b08f171E0Ca939bD600478',
         hookData: zeroAddress,
         commercialRevShare: 0,
         disabled: false,
@@ -52,7 +52,7 @@ const main = async function () {
     const { request } = await publicClient.simulateContract({
         // address of TotalLicenseTokenLimitHook
         // from https://docs.story.foundation/developers/deployed-smart-contracts
-        address: '0xba8E30d9EB784Badc2aF610F56d99d212BC2A90c',
+        address: '0xaBAD364Bfa41230272b08f171E0Ca939bD600478',
         abi: totalLicenseTokenLimitHook,
         functionName: 'setTotalLicenseTokenLimit',
         args: [
