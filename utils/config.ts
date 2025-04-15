@@ -1,4 +1,4 @@
-import { aeneid, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
+import { aeneid, mainnet, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
 import { createPublicClient, createWalletClient, http, WalletClient } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 import dotenv from 'dotenv'
@@ -69,7 +69,7 @@ export const client = StoryClient.newClient(config)
 export const PROTOCOL_EXPLORER = networkInfo.protocolExplorer
 
 const baseConfig = {
-    chain: aeneid,
+    chain: network === 'mainnet' ? mainnet : aeneid,
     transport: http(networkInfo.rpcProviderUrl),
 } as const
 export const publicClient = createPublicClient(baseConfig)
