@@ -13,6 +13,8 @@
         "dispute": "npx ts-node ./scripts/dispute/disputeIp.ts",
         "mint-license": "npx ts-node ./scripts/licenses/mintLicense.ts",
         "license-limit": "npx ts-node ./scripts/licenses/oneTimeUseLicense.ts",
+        "pay-revenue": "npx ts-node ./scripts/royalty/payRevenue.ts",
+        "license-revenue": "npx ts-node ./scripts/royalty/licenseRevenue.ts",
         "create-spg-collection": "npx ts-node ./scripts/utils/functions/createSpgNftCollection.ts"
     },
     "author": "",

@@ -1,7 +1,6 @@
 import { Address, toHex } from 'viem'
-import { mintNFT } from '../../utils/functions/mintNFT'
-import { NFTContractAddress, RoyaltyPolicyLRP } from '../../utils/utils'
-import { account, client } from '../../utils/config'
+import { RoyaltyPolicyLRP, SPGNFTContractAddress } from '../../utils/utils'
+import { client } from '../../utils/config'
 import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 
 // TODO: This is Ippy on Aeneid. The license terms specify 1 $WIP mint fee
@@ -10,18 +9,16 @@ const PARENT_IP_ID: Address = '0x641E638e8FCA4d4844F509630B34c9D524d40BE5'
 const PARENT_LICENSE_TERMS_ID: string = '96'
 
 const main = async function () {
-    // 1. Register another (child) IP Asset
+    // 1. Mint and Register IP asset and make it a derivative of the parent IP Asset
     //
     // You will be paying for the License Token using $WIP:
     // https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000
     // If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into
     // $WIP for you.
     //
-    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#registerderivativeip
-    const childTokenId = await mintNFT(account.address, 'test-uri')
-    const childIp = await client.ipAsset.registerDerivativeIp({
-        nftContract: NFTContractAddress,
-        tokenId: childTokenId!,
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#mintandregisteripandmakederivative
+    const childIp = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
+        spgNftContract: SPGNFTContractAddress,
         derivData: {
             parentIpIds: [PARENT_IP_ID],
             licenseTermsIds: [PARENT_LICENSE_TERMS_ID],
@@ -36,12 +33,44 @@ const main = async function () {
         },
         txOptions: { waitForTransaction: true },
     })
-    console.log('Derivative IPA created:', {
+    console.log('Derivative IPA created and linked:', {
         'Transaction Hash': childIp.txHash,
         'IPA ID': childIp.ipId,
     })
 
-    // 2. Parent Claim Revenue
+    // 2. Mint license tokens from the child
+    //
+    // You will be paying for the License Token using $WIP:
+    // https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000
+    // If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into
+    // $WIP for you.
+    //
+    // Docs: https://docs.story.foundation/sdk-reference/license#mintlicensetokens
+    const mintTokens = await client.license.mintLicenseTokens({
+        licenseTermsId: PARENT_LICENSE_TERMS_ID,
+        licensorIpId: childIp.ipId as Address,
+        amount: 1,
+        maxMintingFee: BigInt(0), // disabled
+        maxRevenueShare: 100, // default
+        txOptions: { waitForTransaction: true },
+    })
+    console.log('Minted license from child:', {
+        'Transaction Hash': mintTokens.txHash,
+    })
+
+    // 3. Child Claim Revenue
+    //
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
+    const childClaimRevenue = await client.royalty.claimAllRevenue({
+        ancestorIpId: childIp.ipId as Address,
+        claimer: childIp.ipId as Address,
+        childIpIds: [],
+        royaltyPolicies: [],
+        currencyTokens: [WIP_TOKEN_ADDRESS],
+    })
+    console.log('Child claimed revenue:', childClaimRevenue.claimedTokens)
+
+    // 4. Parent Claim Revenue
     //
     // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
     const parentClaimRevenue = await client.royalty.claimAllRevenue({

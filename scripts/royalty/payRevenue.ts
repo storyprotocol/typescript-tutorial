@@ -1,4 +1,4 @@
-import { Address, toHex } from 'viem'
+import { Address, parseEther, toHex, zeroAddress } from 'viem'
 import { RoyaltyPolicyLRP, SPGNFTContractAddress } from '../../utils/utils'
 import { client } from '../../utils/config'
 import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
@@ -38,7 +38,38 @@ const main = async function () {
         'IPA ID': childIp.ipId,
     })
 
-    // 2. Parent Claim Revenue
+    // 2. Pay Royalty
+    //
+    // You will be paying for this royalty using $WIP:
+    // https://aeneid.storyscan.xyz/address/0x1514000000000000000000000000000000000000
+    // If you don't have enough $WIP, the function will auto wrap an equivalent amount of $IP into
+    // $WIP for you.
+    //
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#payroyaltyonbehalf
+    const payRoyalty = await client.royalty.payRoyaltyOnBehalf({
+        receiverIpId: childIp.ipId as Address,
+        payerIpId: zeroAddress,
+        token: WIP_TOKEN_ADDRESS,
+        amount: parseEther('2'), // 2 $WIP
+        txOptions: { waitForTransaction: true },
+    })
+    console.log('Paid royalty:', {
+        'Transaction Hash': payRoyalty.txHash,
+    })
+
+    // 3. Child Claim Revenue
+    //
+    // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
+    const childClaimRevenue = await client.royalty.claimAllRevenue({
+        ancestorIpId: childIp.ipId as Address,
+        claimer: childIp.ipId as Address,
+        childIpIds: [],
+        royaltyPolicies: [],
+        currencyTokens: [WIP_TOKEN_ADDRESS],
+    })
+    console.log('Child claimed revenue:', childClaimRevenue.claimedTokens)
+
+    // 4. Parent Claim Revenue
     //
     // Docs: https://docs.story.foundation/sdk-reference/royalty#claimallrevenue
     const parentClaimRevenue = await client.royalty.claimAllRevenue({
