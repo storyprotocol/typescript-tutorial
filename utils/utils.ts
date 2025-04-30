@@ -62,3 +62,8 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
         uri: '',
     }
 }
+
+export function convertRoyaltyPercentToTokens(royaltyPercent: number): number {
+    // there are 100,000,000 tokens total (100, but 6 decimals)
+    return royaltyPercent * 1_000_000
+}
