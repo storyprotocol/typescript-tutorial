@@ -1,4 +1,4 @@
-import { SPGNFTContractAddress } from '../../utils/utils'
+import { createCommercialRemixTerms, SPGNFTContractAddress } from '../../utils/utils'
 import { client, networkInfo } from '../../utils/config'
 import { uploadJSONToIPFS } from '../../utils/functions/uploadToIpfs'
 import { createHash } from 'crypto'
@@ -59,8 +59,13 @@ const main = async function () {
     // 4. Register the NFT as an IP Asset
     //
     // Docs: https://docs.story.foundation/sdk-reference/ip-asset#mintandregisterip
-    const response = await client.ipAsset.mintAndRegisterIp({
+    const response = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
         spgNftContract: SPGNFTContractAddress,
+        licenseTermsData: [
+            {
+                terms: createCommercialRemixTerms({ defaultMintingFee: 10, commercialRevShare: 5 }),
+            },
+        ],
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,

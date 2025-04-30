@@ -1,5 +1,5 @@
 import { mintNFT } from '../../utils/functions/mintNFT'
-import { NFTContractAddress } from '../../utils/utils'
+import { createCommercialRemixTerms, NFTContractAddress } from '../../utils/utils'
 import { client, account, networkInfo } from '../../utils/config'
 import { uploadJSONToIPFS } from '../../utils/functions/uploadToIpfs'
 import { createHash } from 'crypto'
@@ -64,9 +64,14 @@ const main = async function () {
     // 5. Register an IP Asset
     //
     // Docs: https://docs.story.foundation/sdk-reference/ip-asset#register
-    const response = await client.ipAsset.register({
+    const response = await client.ipAsset.registerIpAndAttachPilTerms({
         nftContract: NFTContractAddress,
         tokenId: tokenId!,
+        licenseTermsData: [
+            {
+                terms: createCommercialRemixTerms({ defaultMintingFee: 10, commercialRevShare: 5 }),
+            },
+        ],
         ipMetadata: {
             ipMetadataURI: `https://ipfs.io/ipfs/${ipIpfsHash}`,
             ipMetadataHash: `0x${ipHash}`,
