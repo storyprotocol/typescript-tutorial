@@ -50,7 +50,7 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
         commercialUse: true,
         commercialAttribution: true,
         commercializerChecker: zeroAddress,
-        commercializerCheckerData: zeroAddress,
+        commercializerCheckerData: '0x',
         commercialRevShare: terms.commercialRevShare,
         commercialRevCeiling: BigInt(0),
         derivativesAllowed: true,
@@ -59,7 +59,7 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
         derivativesReciprocal: true,
         derivativeRevCeiling: BigInt(0),
         currency: WIP_TOKEN_ADDRESS,
-        uri: '',
+        uri: 'https://github.com/piplabs/pil-document/blob/ad67bb632a310d2557f8abcccd428e4c9c798db1/off-chain-terms/CommercialRemix.json',
     }
 }
 
