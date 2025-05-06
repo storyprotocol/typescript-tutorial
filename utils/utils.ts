@@ -1,4 +1,4 @@
-import { LicenseTerms, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
+import { LicenseTerms, LicensingConfig, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 import { Address, parseEther, zeroAddress } from 'viem'
 import dotenv from 'dotenv'
 import { networkInfo } from './config'
@@ -61,6 +61,17 @@ export function createCommercialRemixTerms(terms: { commercialRevShare: number; 
         currency: WIP_TOKEN_ADDRESS,
         uri: 'https://github.com/piplabs/pil-document/blob/ad67bb632a310d2557f8abcccd428e4c9c798db1/off-chain-terms/CommercialRemix.json',
     }
+}
+
+export const defaultLicensingConfig: LicensingConfig = {
+    mintingFee: 0n,
+    isSet: false,
+    disabled: false,
+    commercialRevShare: 0,
+    expectGroupRewardPool: zeroAddress,
+    expectMinimumGroupRewardShare: 0,
+    licensingHook: zeroAddress,
+    hookData: '0x',
 }
 
 export function convertRoyaltyPercentToTokens(royaltyPercent: number): number {

@@ -61,3 +61,7 @@ Below are all of the available scripts to help you build on Story.
 ### Dispute
 
 -   `dispute`: This disputes an IP Asset.
+
+### Misc
+
+-   `send-raw-transaction`: An example of sending a transaction using viem's `encodeFunctionData`.

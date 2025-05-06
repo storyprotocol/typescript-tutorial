@@ -1,5 +1,5 @@
 import { aeneid, mainnet, StoryClient, StoryConfig } from '@story-protocol/core-sdk'
-import { createPublicClient, createWalletClient, http, WalletClient } from 'viem'
+import { Chain, createPublicClient, createWalletClient, http, WalletClient } from 'viem'
 import { privateKeyToAccount, Address, Account } from 'viem/accounts'
 import dotenv from 'dotenv'
 
@@ -10,24 +10,30 @@ type NetworkType = 'aeneid' | 'mainnet'
 
 interface NetworkConfig {
     rpcProviderUrl: string
+    blockExplorer: string
     protocolExplorer: string
     defaultNFTContractAddress: Address | null
     defaultSPGNFTContractAddress: Address | null
+    chain: Chain
 }
 
 // Network configurations
 const networkConfigs: Record<NetworkType, NetworkConfig> = {
     aeneid: {
         rpcProviderUrl: 'https://aeneid.storyrpc.io',
+        blockExplorer: 'https://aeneid.storyscan.io',
         protocolExplorer: 'https://aeneid.explorer.story.foundation',
         defaultNFTContractAddress: '0x937bef10ba6fb941ed84b8d249abc76031429a9a' as Address,
         defaultSPGNFTContractAddress: '0xc32A8a0FF3beDDDa58393d022aF433e78739FAbc' as Address,
+        chain: aeneid,
     },
     mainnet: {
         rpcProviderUrl: 'https://mainnet.storyrpc.io',
+        blockExplorer: 'https://storyscan.io',
         protocolExplorer: 'https://explorer.story.foundation',
         defaultNFTContractAddress: null,
         defaultSPGNFTContractAddress: null,
+        chain: mainnet,
     },
 } as const
 
@@ -69,7 +75,7 @@ export const client = StoryClient.newClient(config)
 export const PROTOCOL_EXPLORER = networkInfo.protocolExplorer
 
 const baseConfig = {
-    chain: network === 'mainnet' ? mainnet : aeneid,
+    chain: networkInfo.chain,
     transport: http(networkInfo.rpcProviderUrl),
 } as const
 export const publicClient = createPublicClient(baseConfig)
