@@ -32,7 +32,7 @@ const networkConfigs: Record<NetworkType, NetworkConfig> = {
         blockExplorer: 'https://storyscan.io',
         protocolExplorer: 'https://explorer.story.foundation',
         defaultNFTContractAddress: null,
-        defaultSPGNFTContractAddress: null,
+        defaultSPGNFTContractAddress: '0x98971c660ac20880b60F86Cc3113eBd979eb3aAE' as Address,
         chain: mainnet,
     },
 } as const
