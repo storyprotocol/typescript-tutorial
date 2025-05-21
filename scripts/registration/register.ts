@@ -63,7 +63,7 @@ const main = async function () {
         spgNftContract: SPGNFTContractAddress,
         licenseTermsData: [
             {
-                terms: createCommercialRemixTerms({ defaultMintingFee: 10, commercialRevShare: 5 }),
+                terms: createCommercialRemixTerms({ defaultMintingFee: 1, commercialRevShare: 5 }),
             },
         ],
         ipMetadata: {

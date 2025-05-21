@@ -16,6 +16,7 @@
         "pay-revenue": "npx ts-node ./scripts/royalty/payRevenue.ts",
         "license-revenue": "npx ts-node ./scripts/royalty/licenseRevenue.ts",
         "transfer-royalty-tokens": "npx ts-node ./scripts/royalty/transferRoyaltyTokens.ts",
+        "claim-revenue": "npx ts-node ./scripts/royalty/claimRevenue.ts",
         "create-spg-collection": "npx ts-node ./scripts/utils/functions/createSpgNftCollection.ts",
         "send-raw-transaction": "npx ts-node ./scripts/misc/sendRawTransaction.ts"
     },
