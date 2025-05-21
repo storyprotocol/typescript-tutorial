@@ -77,6 +77,7 @@ const main = async function () {
     console.log('Root IPA created:', {
         'Transaction Hash': response.txHash,
         'IPA ID': response.ipId,
+        'License Terms IDs': response.licenseTermsIds,
     })
     console.log(`View on the explorer: ${networkInfo.protocolExplorer}/ipa/${response.ipId}`)
 }
