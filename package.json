@@ -17,7 +17,7 @@
         "license-revenue": "npx ts-node ./scripts/royalty/licenseRevenue.ts",
         "transfer-royalty-tokens": "npx ts-node ./scripts/royalty/transferRoyaltyTokens.ts",
         "claim-revenue": "npx ts-node ./scripts/royalty/claimRevenue.ts",
-        "create-spg-collection": "npx ts-node ./scripts/utils/functions/createSpgNftCollection.ts",
+        "create-spg-collection": "npx ts-node ./utils/functions/createSpgNftCollection.ts",
         "send-raw-transaction": "npx ts-node ./scripts/misc/sendRawTransaction.ts"
     },
     "author": "",
@@ -27,11 +27,12 @@
         "dotenv": "^16.4.7",
         "multiformats": "^9.9.0",
         "pinata-web3": "^0.5.4",
-        "ts-node": "^10.9.2",
         "viem": "^2.8.12"
     },
     "devDependencies": {
         "@types/node": "^20.11.17",
-        "prettier": "3.2.5"
+        "prettier": "3.2.5",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
     }
 }
