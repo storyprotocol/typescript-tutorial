@@ -2,33 +2,33 @@ import { Address, parseEther } from 'viem'
 import { client } from '../../utils/config'
 import * as sha256 from 'multiformats/hashes/sha2'
 import { CID } from 'multiformats/cid'
+import { uploadTextToIPFS } from '../../utils/functions/uploadToIpfs'
 
-// TODO: Replace with your own IP ID
+// TODO: Replace with your own IP ID and fill out your evidence
 const IP_ID: Address = '0x876B03d1e756C5C24D4b9A1080387098Fcc380f5'
+const EVIDENCE: string = 'Fill out your evidence here.'
 
 const main = async function () {
-    // NOTE: Every time `raiseDispute` is called, it needs to be called with
-    // a unique CID. The CID representes dispute evidence.
-    // For testing purposes, we use a `generateCID` function.
-    const randomCid = await generateCID()
+    const disputeHash = await uploadTextToIPFS(EVIDENCE)
+    console.log(`Dispute evidence uploaded to IPFS: ${disputeHash}`)
 
-    // 1. Raise a Dispute
+    // Raise a Dispute
     //
     // Docs: https://docs.story.foundation/sdk-reference/dispute#raisedispute
     const disputeResponse = await client.dispute.raiseDispute({
         targetIpId: IP_ID,
-        cid: randomCid,
+        cid: disputeHash,
         // you must pick from one of the whitelisted tags here:
         // https://docs.story.foundation/concepts/dispute-module/overview#dispute-tags
         targetTag: 'IMPROPER_REGISTRATION',
         bond: parseEther('0.1'),
-        liveness: 2592000,
+        liveness: 2592000, // 30 days
         txOptions: { waitForTransaction: true },
     })
     console.log(`Dispute raised at transaction hash ${disputeResponse.txHash}, Dispute ID: ${disputeResponse.disputeId}`)
 }
 
-// example function just for demo purposes
+// example function you can use for testing purposes if you want
 const generateCID = async () => {
     // Generate a random 32-byte buffer
     const randomBytes = crypto.getRandomValues(new Uint8Array(32))

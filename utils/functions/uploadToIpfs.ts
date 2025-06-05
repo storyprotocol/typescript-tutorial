@@ -1,21 +1,50 @@
-import { PinataSDK } from 'pinata-web3'
-import fs from 'fs'
-import path from 'path'
-
-const pinata = new PinataSDK({
-    pinataJwt: process.env.PINATA_JWT,
-})
+import axios from 'axios'
+import FormData from 'form-data'
 
 export async function uploadJSONToIPFS(jsonMetadata: any): Promise<string> {
-    const { IpfsHash } = await pinata.upload.json(jsonMetadata)
-    return IpfsHash
+    const url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
+    const options = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${process.env.PINATA_JWT}`,
+            'Content-Type': 'application/json',
+        },
+        data: {
+            pinataOptions: { cidVersion: 0 },
+            pinataMetadata: { name: 'ip-metadata.json' },
+            pinataContent: jsonMetadata,
+        },
+    }
+
+    try {
+        const response = await axios(url, options)
+        return response.data.IpfsHash
+    } catch (error) {
+        console.error('Error uploading JSON to IPFS:', error)
+        throw error
+    }
 }
 
-// could use this to upload music (audio files) to IPFS
-export async function uploadFileToIPFS(filePath: string, fileName: string, fileType: string): Promise<string> {
-    const fullPath = path.join(process.cwd(), filePath)
-    const blob = new Blob([fs.readFileSync(fullPath)])
-    const file = new File([blob], fileName, { type: fileType })
-    const { IpfsHash } = await pinata.upload.file(file)
-    return IpfsHash
+export async function uploadTextToIPFS(text: string): Promise<string> {
+    const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS'
+    const data = new FormData()
+    const buffer = Buffer.from(text, 'utf-8')
+    data.append('file', buffer, { filename: 'dispute-evidence.txt', contentType: 'text/plain' })
+
+    const options = {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${process.env.PINATA_JWT}`,
+            ...data.getHeaders(),
+        },
+        data: data,
+    }
+
+    try {
+        const response = await axios(url, options)
+        return response.data.IpfsHash
+    } catch (error) {
+        console.error('Error uploading text to IPFS:', error)
+        throw error
+    }
 }
