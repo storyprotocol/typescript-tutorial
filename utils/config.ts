@@ -37,13 +37,6 @@ const networkConfigs: Record<NetworkType, NetworkConfig> = {
     },
 } as const
 
-// Helper functions
-const validateEnvironmentVars = () => {
-    if (!process.env.WALLET_PRIVATE_KEY) {
-        throw new Error('WALLET_PRIVATE_KEY is required in .env file')
-    }
-}
-
 const getNetwork = (): NetworkType => {
     const network = process.env.STORY_NETWORK as NetworkType
     if (network && !(network in networkConfigs)) {
@@ -54,7 +47,6 @@ const getNetwork = (): NetworkType => {
 
 // Initialize client configuration
 export const network = getNetwork()
-validateEnvironmentVars()
 
 export const networkInfo = {
     ...networkConfigs[network],
@@ -70,9 +62,6 @@ const config: StoryConfig = {
 }
 
 export const client = StoryClient.newClient(config)
-
-// Export additional useful constants
-export const PROTOCOL_EXPLORER = networkInfo.protocolExplorer
 
 const baseConfig = {
     chain: networkInfo.chain,
