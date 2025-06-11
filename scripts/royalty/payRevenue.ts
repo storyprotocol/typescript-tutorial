@@ -77,7 +77,7 @@ const main = async function () {
         royaltyPolicies: [RoyaltyPolicyLRP],
         currencyTokens: [WIP_TOKEN_ADDRESS],
     })
-    console.log('Parent claimed revenue receipt:', parentClaimRevenue)
+    console.log('Parent claimed revenue receipt:', parentClaimRevenue.claimedTokens)
 }
 
 main()
