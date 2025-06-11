@@ -19,7 +19,6 @@ const main = async function () {
         mintOpen: true,
         mintFeeRecipient: zeroAddress,
         contractURI: '',
-        txOptions: { waitForTransaction: true },
     })
 
     console.log('New collection created:', {

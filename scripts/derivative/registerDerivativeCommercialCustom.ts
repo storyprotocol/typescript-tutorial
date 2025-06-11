@@ -34,7 +34,6 @@ const main = async function () {
             nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
             nftMetadataURI: 'test-nft-uri',
         },
-        txOptions: { waitForTransaction: true },
     })
     console.log('Derivative IPA created:', {
         'Transaction Hash': childIp.txHash,

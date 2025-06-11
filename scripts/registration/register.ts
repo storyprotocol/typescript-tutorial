@@ -72,7 +72,6 @@ const main = async function () {
             nftMetadataURI: `https://ipfs.io/ipfs/${nftIpfsHash}`,
             nftMetadataHash: `0x${nftHash}`,
         },
-        txOptions: { waitForTransaction: true },
     })
     console.log('Root IPA created:', {
         'Transaction Hash': response.txHash,

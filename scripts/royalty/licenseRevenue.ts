@@ -31,7 +31,6 @@ const main = async function () {
             nftMetadataHash: toHex('test-nft-metadata-hash', { size: 32 }),
             nftMetadataURI: 'test-nft-uri',
         },
-        txOptions: { waitForTransaction: true },
     })
     console.log('Derivative IPA created and linked:', {
         'Transaction Hash': childIp.txHash,
@@ -52,7 +51,6 @@ const main = async function () {
         amount: 1,
         maxMintingFee: BigInt(0), // disabled
         maxRevenueShare: 100, // default
-        txOptions: { waitForTransaction: true },
     })
     console.log('Minted license from child:', {
         'Transaction Hash': mintTokens.txHash,

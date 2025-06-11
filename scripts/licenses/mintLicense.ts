@@ -15,7 +15,6 @@ const main = async function () {
         amount: 1,
         maxMintingFee: BigInt(0), // disabled
         maxRevenueShare: 100, // default
-        txOptions: { waitForTransaction: true },
     })
 
     console.log('License minted:', {

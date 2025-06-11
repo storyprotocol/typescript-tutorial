@@ -3,6 +3,7 @@ import { client } from '../../utils/config'
 import * as sha256 from 'multiformats/hashes/sha2'
 import { CID } from 'multiformats/cid'
 import { uploadTextToIPFS } from '../../utils/functions/uploadToIpfs'
+import { DisputeTargetTag } from '@story-protocol/core-sdk'
 
 // TODO: Replace with your own IP ID and fill out your evidence
 const IP_ID: Address = '0x876B03d1e756C5C24D4b9A1080387098Fcc380f5'
@@ -20,10 +21,9 @@ const main = async function () {
         cid: disputeHash,
         // you must pick from one of the whitelisted tags here:
         // https://docs.story.foundation/concepts/dispute-module/overview#dispute-tags
-        targetTag: 'IMPROPER_REGISTRATION',
+        targetTag: DisputeTargetTag.IMPROPER_REGISTRATION,
         bond: parseEther('0.1'),
         liveness: 2592000, // 30 days
-        txOptions: { waitForTransaction: true },
     })
     console.log(`Dispute raised at transaction hash ${disputeResponse.txHash}, Dispute ID: ${disputeResponse.disputeId}`)
 }

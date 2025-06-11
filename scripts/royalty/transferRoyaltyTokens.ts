@@ -11,7 +11,6 @@ const main = async function () {
                 terms: createCommercialRemixTerms({ defaultMintingFee: 0, commercialRevShare: 0 }),
             },
         ],
-        txOptions: { waitForTransaction: true },
     })
     console.log('Parent IPA created:', {
         'Transaction Hash': parentIp.txHash,
@@ -26,7 +25,6 @@ const main = async function () {
         amount: 1,
         maxMintingFee: BigInt(0), // disabled
         maxRevenueShare: 100, // default
-        txOptions: { waitForTransaction: true },
     })
     console.log('Minted license:', {
         'Transaction Hash': mintLicense.txHash,
@@ -50,7 +48,6 @@ const main = async function () {
                 target: account.address,
             },
         ],
-        txOptions: { waitForTransaction: true },
     })
     console.log('Transferred royalty tokens:', { 'Transaction Hash': transferRoyaltyTokens.txHash })
 }
