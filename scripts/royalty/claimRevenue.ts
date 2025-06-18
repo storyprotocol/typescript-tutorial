@@ -12,9 +12,9 @@ const main = async function () {
     const response = await client.royalty.claimAllRevenue({
         ancestorIpId: IP_ID,
         claimer: IP_ID,
+        currencyTokens: [WIP_TOKEN_ADDRESS],
         childIpIds: [],
         royaltyPolicies: [],
-        currencyTokens: [WIP_TOKEN_ADDRESS],
     })
     console.log('Claimed revenue:', response.claimedTokens)
 }
