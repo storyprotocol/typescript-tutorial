@@ -1,9 +1,10 @@
 import { SPGNFTContractAddress, createCommercialRemixTerms } from '../../utils/utils'
-import { client, account, publicClient, walletClient } from '../../utils/config'
+import { client } from '../../utils/config'
 import { toHex } from 'viem'
 import { LicensingConfig } from '@story-protocol/core-sdk'
 import { zeroAddress } from 'viem'
-import { totalLicenseTokenLimitHook } from '../../utils/abi/totalLicenseTokenLimitHook'
+
+const LICENSE_LIMIT = 1
 
 const main = async function () {
     // 1. Set up Licensing Config
@@ -30,8 +31,9 @@ const main = async function () {
         licenseTermsData: [
             {
                 terms: createCommercialRemixTerms({ commercialRevShare: 0, defaultMintingFee: 0 }),
-                // set the licensing config here
                 licensingConfig,
+                // set the license limit here
+                maxLicenseTokens: LICENSE_LIMIT,
             },
         ],
         ipMetadata: {
@@ -45,34 +47,7 @@ const main = async function () {
         'Transaction Hash': response.txHash,
         'IPA ID': response.ipId,
         'License Term IDs': response.licenseTermsIds,
-    })
-
-    // 3. Set Total License Token Limit
-    const { request } = await publicClient.simulateContract({
-        // address of TotalLicenseTokenLimitHook
-        // from https://docs.story.foundation/developers/deployed-smart-contracts
-        address: '0xaBAD364Bfa41230272b08f171E0Ca939bD600478',
-        abi: totalLicenseTokenLimitHook,
-        functionName: 'setTotalLicenseTokenLimit',
-        args: [
-            response.ipId, // licensorIpId
-            '0x2E896b0b2Fdb7457499B56AAaA4AE55BCB4Cd316', // licenseTemplate
-            response.licenseTermsIds![0], // licenseTermsId
-            1n, // limit (as BigInt)
-        ],
-        account: account, // Specify the account to use for permission checking
-    })
-
-    // Prepare transaction
-    const hash = await walletClient.writeContract({ ...request, account: account })
-
-    // Wait for transaction to be mined
-    const receipt = await publicClient.waitForTransactionReceipt({
-        hash,
-    })
-
-    console.log('Total license token limit set:', {
-        Receipt: receipt,
+        'License Limit': LICENSE_LIMIT,
     })
 }
 
