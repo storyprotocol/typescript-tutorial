@@ -1,9 +1,9 @@
 import { mintNFT } from '../../utils/functions/mintNFT'
-import { createCommercialRemixTerms, NFTContractAddress } from '../../utils/utils'
+import { NFTContractAddress, RoyaltyPolicyLAP } from '../../utils/utils'
 import { client, account, networkInfo } from '../../utils/config'
 import { uploadJSONToIPFS } from '../../utils/functions/uploadToIpfs'
 import { createHash } from 'crypto'
-import { IpMetadata } from '@story-protocol/core-sdk'
+import { IpMetadata, PILFlavor, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 
 const main = async function () {
     // 1. Set up your IP Metadata
@@ -69,7 +69,12 @@ const main = async function () {
         tokenId: tokenId!,
         licenseTermsData: [
             {
-                terms: createCommercialRemixTerms({ defaultMintingFee: 1, commercialRevShare: 5 }),
+                terms: PILFlavor.commercialRemix({
+                    commercialRevShare: 5,
+                    defaultMintingFee: 1,
+                    royaltyPolicy: RoyaltyPolicyLAP,
+                    currency: WIP_TOKEN_ADDRESS,
+                }),
             },
         ],
         ipMetadata: {

@@ -1,8 +1,8 @@
-import { createCommercialRemixTerms, defaultLicensingConfig, SPGNFTContractAddress } from '../../utils/utils'
+import { defaultLicensingConfig, RoyaltyPolicyLAP, SPGNFTContractAddress } from '../../utils/utils'
 import { account, client, networkInfo, walletClient } from '../../utils/config'
 import { uploadJSONToIPFS } from '../../utils/functions/uploadToIpfs'
 import { createHash } from 'crypto'
-import { IpMetadata } from '@story-protocol/core-sdk'
+import { IpMetadata, PILFlavor, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 import { encodeFunctionData } from 'viem'
 import { licenseAttachmentWorkflowsAbi } from '../../utils/abi/licenseAttachmentWorkflowsAbi'
 
@@ -67,7 +67,12 @@ const main = async function () {
                 },
                 [
                     {
-                        terms: createCommercialRemixTerms({ defaultMintingFee: 0, commercialRevShare: 0 }),
+                        terms: PILFlavor.commercialRemix({
+                            commercialRevShare: 0,
+                            defaultMintingFee: 0,
+                            royaltyPolicy: RoyaltyPolicyLAP,
+                            currency: WIP_TOKEN_ADDRESS,
+                        }),
                         licensingConfig: defaultLicensingConfig,
                     },
                 ],

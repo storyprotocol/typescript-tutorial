@@ -1,6 +1,7 @@
 import { Address } from 'viem'
-import { convertRoyaltyPercentToTokens, createCommercialRemixTerms, SPGNFTContractAddress } from '../../utils/utils'
+import { convertRoyaltyPercentToTokens, RoyaltyPolicyLAP, SPGNFTContractAddress } from '../../utils/utils'
 import { account, client } from '../../utils/config'
+import { PILFlavor, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 
 const main = async function () {
     // FOR SETUP: Create a new IP Asset we can use
@@ -8,7 +9,12 @@ const main = async function () {
         spgNftContract: SPGNFTContractAddress,
         licenseTermsData: [
             {
-                terms: createCommercialRemixTerms({ defaultMintingFee: 0, commercialRevShare: 0 }),
+                terms: PILFlavor.commercialRemix({
+                    commercialRevShare: 0,
+                    defaultMintingFee: 0,
+                    royaltyPolicy: RoyaltyPolicyLAP,
+                    currency: WIP_TOKEN_ADDRESS,
+                }),
             },
         ],
     })

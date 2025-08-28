@@ -1,8 +1,9 @@
-import { createCommercialRemixTerms, SPGNFTContractAddress } from '../../utils/utils'
+import { SPGNFTContractAddress } from '../../utils/utils'
 import { client, networkInfo } from '../../utils/config'
 import { uploadJSONToIPFS } from '../../utils/functions/uploadToIpfs'
 import { createHash } from 'crypto'
-import { IpMetadata } from '@story-protocol/core-sdk'
+import { IpMetadata, PILFlavor, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
+import { parseEther } from 'viem'
 
 const main = async function () {
     // 1. Set up your IP Metadata
@@ -63,7 +64,11 @@ const main = async function () {
         spgNftContract: SPGNFTContractAddress,
         licenseTermsData: [
             {
-                terms: createCommercialRemixTerms({ defaultMintingFee: 1, commercialRevShare: 5 }),
+                terms: PILFlavor.commercialUse({
+                    override: { commercialRevShare: 5 },
+                    defaultMintingFee: parseEther('1'),
+                    currency: WIP_TOKEN_ADDRESS,
+                }),
             },
         ],
         ipMetadata: {

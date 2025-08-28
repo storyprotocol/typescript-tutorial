@@ -1,7 +1,7 @@
-import { SPGNFTContractAddress, createCommercialRemixTerms } from '../../utils/utils'
+import { RoyaltyPolicyLAP, SPGNFTContractAddress } from '../../utils/utils'
 import { client } from '../../utils/config'
 import { toHex } from 'viem'
-import { LicensingConfig } from '@story-protocol/core-sdk'
+import { LicensingConfig, PILFlavor, WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 import { zeroAddress } from 'viem'
 
 const LICENSE_LIMIT = 1
@@ -30,7 +30,12 @@ const main = async function () {
         spgNftContract: SPGNFTContractAddress,
         licenseTermsData: [
             {
-                terms: createCommercialRemixTerms({ commercialRevShare: 0, defaultMintingFee: 0 }),
+                terms: PILFlavor.commercialRemix({
+                    commercialRevShare: 0,
+                    defaultMintingFee: 0,
+                    royaltyPolicy: RoyaltyPolicyLAP,
+                    currency: WIP_TOKEN_ADDRESS,
+                }),
                 licensingConfig,
                 // set the license limit here
                 maxLicenseTokens: LICENSE_LIMIT,
