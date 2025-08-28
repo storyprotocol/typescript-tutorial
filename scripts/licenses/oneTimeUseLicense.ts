@@ -33,7 +33,6 @@ const main = async function () {
                 terms: PILFlavor.commercialRemix({
                     commercialRevShare: 0,
                     defaultMintingFee: 0,
-                    royaltyPolicy: RoyaltyPolicyLAP,
                     currency: WIP_TOKEN_ADDRESS,
                 }),
                 licensingConfig,

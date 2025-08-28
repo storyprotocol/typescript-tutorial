@@ -64,8 +64,8 @@ const main = async function () {
         spgNftContract: SPGNFTContractAddress,
         licenseTermsData: [
             {
-                terms: PILFlavor.commercialUse({
-                    override: { commercialRevShare: 5 },
+                terms: PILFlavor.commercialRemix({
+                    commercialRevShare: 5,
                     defaultMintingFee: parseEther('1'),
                     currency: WIP_TOKEN_ADDRESS,
                 }),

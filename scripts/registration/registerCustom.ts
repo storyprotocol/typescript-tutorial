@@ -72,7 +72,6 @@ const main = async function () {
                 terms: PILFlavor.commercialRemix({
                     commercialRevShare: 5,
                     defaultMintingFee: 1,
-                    royaltyPolicy: RoyaltyPolicyLAP,
                     currency: WIP_TOKEN_ADDRESS,
                 }),
             },
