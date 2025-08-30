@@ -52,7 +52,7 @@ const main = async function () {
     const nftHash = createHash('sha256').update(JSON.stringify(nftMetadata)).digest('hex')
 
     const transactionRequest = {
-        to: '0xcC2E862bCee5B6036Db0de6E06Ae87e524a79fd8' as `0x${string}`, // example nft contract
+        to: '0xcC2E862bCee5B6036Db0de6E06Ae87e524a79fd8' as `0x${string}`, // LicenseAttachmentWorkflows: https://docs.story.foundation/developers/deployed-smart-contracts
         data: encodeFunctionData({
             abi: licenseAttachmentWorkflowsAbi, // abi from another file
             functionName: 'mintAndRegisterIpAndAttachPILTerms',
