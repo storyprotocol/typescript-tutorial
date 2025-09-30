@@ -23,7 +23,8 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@story-protocol/core-sdk": "1.4.0-rc.2",
+        "@story-protocol/core-sdk": "^1.4.0",
+        "axios": "^1.12.2",
         "dotenv": "^16.4.7",
         "multiformats": "^9.9.0",
         "viem": "^2.8.12"

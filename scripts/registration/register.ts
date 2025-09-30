@@ -59,9 +59,9 @@ const main = async function () {
 
     // 4. Register the NFT as an IP Asset
     //
-    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#mintandregisterip
-    const response = await client.ipAsset.mintAndRegisterIpAssetWithPilTerms({
-        spgNftContract: SPGNFTContractAddress,
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#registeripasset
+    const response = await client.ipAsset.registerIpAsset({
+        nft: { type: 'mint', spgNftContract: SPGNFTContractAddress },
         licenseTermsData: [
             {
                 terms: PILFlavor.commercialRemix({

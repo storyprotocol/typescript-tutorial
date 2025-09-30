@@ -8,9 +8,9 @@ const PARENT_IP_ID: Address = '0x641E638e8FCA4d4844F509630B34c9D524d40BE5'
 const main = async function () {
     // 1. Mint and Register IP asset and make it a derivative of the parent IP Asset
     //
-    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#mintandregisteripandmakederivative
-    const childIp = await client.ipAsset.mintAndRegisterIpAndMakeDerivative({
-        spgNftContract: SPGNFTContractAddress,
+    // Docs: https://docs.story.foundation/sdk-reference/ip-asset#registerderivativeipasset
+    const childIp = await client.ipAsset.registerDerivativeIpAsset({
+        nft: { type: 'mint', spgNftContract: SPGNFTContractAddress },
         derivData: {
             parentIpIds: [PARENT_IP_ID],
             licenseTermsIds: [NonCommercialSocialRemixingTermsId],

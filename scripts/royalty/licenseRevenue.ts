@@ -7,7 +7,7 @@ import { WIP_TOKEN_ADDRESS } from '@story-protocol/core-sdk'
 // and a 5% commercial rev share.
 const PARENT_IP_ID: Address = '0x641E638e8FCA4d4844F509630B34c9D524d40BE5'
 // This is the license terms the child IP used to become derivative.
-const LICENSE_TERMS_ID: string = '96'
+const LICENSE_TERMS_ID: number = 96
 // This is a random derivative asset of Ippy for testing.
 const CHILD_IP_ID: Address = '0x732AcAb7C31e4668a32299a22257DB4CA0e54312'
 
